@@ -45,6 +45,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gridSize: 1
+  walkableMask:
+    serializedVersion: 2
+    m_Bits: 768
 --- !u!1 &1886351979915035313
 GameObject:
   m_ObjectHideFlags: 0
