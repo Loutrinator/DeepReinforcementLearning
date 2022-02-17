@@ -29,7 +29,7 @@ namespace ReinforcementLearning {
             var layerArrival = LayerMask.NameToLayer("Arrival");
             nextState = GetNextState(action, possibleStates, out var playerI, out var playerJ);
             if (grid[playerI][playerJ] == layerArrival) {
-                return 1000;
+                return 1;
             }
 
             return 0;

@@ -27,12 +27,12 @@ namespace ReinforcementLearning {
 
             float gamma = 0.9f; // facteur de dévaluation
             float delta;
-            float theta = 0.7f;
+            float theta = 0.01f;
             int iterations = 0;
             do {
                 ++iterations;
                 delta = 0;
-                for (var index = 0; index < possibleStates.Count; index++) {
+                for (var index = 0; index < possibleStates.Count; ++index) {
                     var state = possibleStates[index];
                     float temp = state.value;
 
@@ -51,8 +51,9 @@ namespace ReinforcementLearning {
                     delta = Mathf.Max(delta, Mathf.Abs(temp - state.value));
                 }
                 
-            } while (delta > theta);
+            } while (delta > theta);    // until delta < theta
             Debug.Log(iterations + " iterations");
+            
             // build end policy
             List<Movement> policy = new List<Movement>();
             var nextState = grid.gridState;
