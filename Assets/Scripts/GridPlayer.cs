@@ -1,6 +1,7 @@
-﻿using UnityEngine;
+﻿using ReinforcementLearning;
+using UnityEngine;
 
-public class GridPlayer : MonoBehaviour {
+public abstract class GridPlayer : MonoBehaviour {
     public float gridSize = 1;
     [SerializeField] private LayerMask walkableMask;
 
@@ -12,4 +13,6 @@ public class GridPlayer : MonoBehaviour {
             }
         }
     }
+
+    public abstract int[][][] GetAllPossibleStates(GameGrid grid);
 }

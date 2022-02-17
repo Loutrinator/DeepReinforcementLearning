@@ -21,18 +21,7 @@ namespace ReinforcementLearning {
                     Vector3 castPos = firstPos + j * Vector3.right + i * Vector3.up + new Vector3(0.5f, 0.5f, 0);
                     if (Physics.Raycast(castPos + Vector3.back * 5, Vector3.forward, out var hit, 10)) {
                         var objLayer = hit.collider.gameObject.layer;
-                        if (objLayer == LayerMask.NameToLayer("Ground")) {
-                            grid[i][j] = 0;
-                        }
-                        if (objLayer == LayerMask.NameToLayer("Wall")) {
-                            grid[i][j] = 1;
-                        }
-                        if (objLayer == LayerMask.NameToLayer("Player")) {
-                            grid[i][j] = 2;
-                        }
-                        if (objLayer == LayerMask.NameToLayer("Arrival")) {
-                            grid[i][j] = 3;
-                        }
+                        grid[i][j] = objLayer;
                     }
                     else {
                         grid[i][j] = -1;
