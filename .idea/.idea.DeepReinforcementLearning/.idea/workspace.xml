@@ -3,9 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="68799054-620c-47a7-84d0-58572fd78ddd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridWorld/GridWorldPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridWorld/GridWorldPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/DynamicProgramming.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/DynamicProgramming.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GameGrid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GameGrid.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -27,6 +25,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fd824cfb55004855b9e6d51b008c90e4568778/df/f734cd01/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Arrival.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fd824cfb55004855b9e6d51b008c90e4568778/91/c0b36266/Single.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/ScrollRect.cs" root0="SKIP_HIGHLIGHTING" />
@@ -87,7 +86,7 @@
       <updated>1645003585582</updated>
       <workItem from="1645003591205" duration="6164000" />
       <workItem from="1645018783275" duration="8873000" />
-      <workItem from="1645028067476" duration="12913000" />
+      <workItem from="1645028067476" duration="21449000" />
     </task>
     <servers />
   </component>
@@ -111,5 +110,24 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="DotNet Breakpoints">
+          <url>file://$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/DynamicProgramming.cs</url>
+          <line>55</line>
+          <properties documentPath="C:\Users\pamar\Documents\Projets\DeepReinforcementLearning\Assets\Scripts\ReinforcementLearning\DynamicProgramming.cs" initialLine="55" containingFunctionPresentation="method 'ValueIteration'">
+            <startOffsets>
+              <option value="2173" />
+            </startOffsets>
+            <endOffsets>
+              <option value="2218" />
+            </endOffsets>
+          </properties>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>
