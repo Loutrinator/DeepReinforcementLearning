@@ -28,8 +28,8 @@ namespace ReinforcementLearning {
         public int GetReward(Movement action, List<GridState> possibleStates, out GridState nextState) {
             var layerArrival = LayerMask.NameToLayer("Arrival");
             nextState = GetNextState(action, possibleStates, out var playerI, out var playerJ);
-            if (nextState.grid[playerI][playerJ] == layerArrival) {
-                return 1;
+            if (grid[playerI][playerJ] == layerArrival) {
+                return 1000;
             }
 
             return 0;
@@ -50,21 +50,22 @@ namespace ReinforcementLearning {
                         int newI = i, newJ = j;
                         switch (action) {
                             case Movement.Up:
-                                newI = i - 1 > 0 ? i - 1 : i;
+                                newI = i + 1 < gridSize.y ? i + 1 : i;
                                 break;
                             case Movement.Right:
                                 newJ = j + 1 < gridSize.x ? j + 1 : j;
                                 break;
                             case Movement.Down:
-                                newI = i + 1 < gridSize.y ? i + 1 : i;
+                                newI = i - 1 >= 0 ? i - 1 : i;
                                 break;
                             case Movement.Left:
-                                newJ = j - 1 > 0 ? j - 1 : j;
+                                newJ = j - 1 >= 0 ? j - 1 : j;
                                 break;
                         }
 
                         playerNewI = newI;
                         playerNewJ = newJ;
+                        testCell = nextState.grid[newI][newJ];
                         if (testCell == layerGround || testCell == layerArrival) {
                             nextState.grid[i][j] = layerGround;
                             nextState.grid[newI][newJ] = layerPlayer;
@@ -75,7 +76,7 @@ namespace ReinforcementLearning {
                 }
             }
             
-            return possibleStates.Find(state => state.Equals(nextState));
+            return this;
         }
 
         public override bool Equals(object other) {
@@ -83,6 +84,7 @@ namespace ReinforcementLearning {
         }
 
         protected bool Equals(GridState other) {
+            if (other == null) return false;
             Vector2Int gridSize = new Vector2Int(grid[0].Length, grid.Length);
             for (int i = 0; i < gridSize.y; ++i) {
                 for (int j = 0; j < gridSize.x; ++j) {

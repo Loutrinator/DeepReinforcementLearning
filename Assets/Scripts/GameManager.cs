@@ -1,3 +1,5 @@
+using System.Collections;
+using System.Collections.Generic;
 using ReinforcementLearning;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -28,7 +30,32 @@ public class GameManager : MonoBehaviour {
         gameGrid = new GameGrid();
         gameGrid.Init(groundPlane);
 
-        DynamicProgramming.ValueIteration(player, gameGrid);
+        var moves = DynamicProgramming.ValueIteration(player, gameGrid);
+        StartCoroutine(MovePlayer(moves));
+    }
+
+    private IEnumerator MovePlayer(List<Movement> moves) {
+        var wait = new WaitForSeconds(0.5f);
+        foreach (var move in moves) {
+            yield return wait;
+            player.Move(GetDirection(move));
+        }
+        yield return null;
+    }
+
+    private Vector2 GetDirection(Movement move) {
+        switch (move) {
+            case Movement.Down:
+                return new Vector2(0, -1);
+            case Movement.Left:
+                return new Vector2(-1, 0);
+            case Movement.Right:
+                return new Vector2(1, 0);
+            case Movement.Up:
+                return new Vector2(0, 1);
+        }
+
+        return Vector2.zero;
     }
 
     public void OnPlayerSuccess() {

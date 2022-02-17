@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace ReinforcementLearning {
@@ -13,7 +14,7 @@ namespace ReinforcementLearning {
                 };
             }
         }
-        public static void ValueIteration(GridPlayer player, GameGrid grid) {
+        public static List<Movement> ValueIteration(GridPlayer player, GameGrid grid) {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
@@ -38,7 +39,7 @@ namespace ReinforcementLearning {
                     float max = 0;
                     foreach (Movement actionType in Enum.GetValues(typeof(Movement))) {
                         float reward = state.GetReward(actionType, possibleStates, out var nextStateTmp);
-                        float currentVal = reward + gamma * nextStateTmp.value;
+                        float currentVal = reward + gamma * (nextStateTmp?.value ?? 0);
                         if (max < currentVal) {
                             state.bestAction = actionType;
                             max = currentVal;
@@ -49,19 +50,23 @@ namespace ReinforcementLearning {
 
                     delta = Mathf.Max(delta, Mathf.Abs(temp - state.value));
                 }
+                
             } while (delta > theta);
             Debug.Log(iterations + " iterations");
-            
             // build end policy
             List<Movement> policy = new List<Movement>();
-            var currentState = grid.gridState;
-            policy.Add(grid.gridState.bestAction);
-            var nextState = currentState.GetNextState(currentState.bestAction, possibleStates, out _, out _);
-            policy.Add(nextState.bestAction);
+            var nextState = grid.gridState;
+            do {
+                var tmp = nextState;
+                nextState = possibleStates.Find(state => state.Equals(nextState));
+                policy.Add(nextState.bestAction);
+                nextState = nextState.GetNextState(nextState.bestAction, possibleStates, out _, out _);
+                if (tmp.Equals(nextState)) break;
+            } while (nextState != null);
 
-            for (int i = 0; i < policy.Count; ++i) {
-                Debug.Log(i + " => " + policy[i]);
-            }
+            Debug.Log("Policy : " + policy.Count);
+
+            return policy;
         }
     }
 }
