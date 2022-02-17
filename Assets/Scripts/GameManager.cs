@@ -1,3 +1,4 @@
+using ReinforcementLearning;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -6,8 +7,11 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance => _instance;
     
     [SerializeField] private GridPlayer player;
+    [SerializeField] private Transform groundPlane;
 
     [SerializeField] private Canvas successCanvas;
+
+    private GameGrid gameGrid;
     
     private void Awake() {
         if (_instance != null) {
@@ -18,8 +22,11 @@ public class GameManager : MonoBehaviour {
         _instance = this;
     }
 
-    public void Start() {
+    private void Start() {
         successCanvas.gameObject.SetActive(false);
+
+        gameGrid = new GameGrid();
+        gameGrid.Init(groundPlane);
     }
 
     public void OnPlayerSuccess() {
