@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
+using ReinforcementLearning.Common;
 using UnityEngine;
 
 namespace ReinforcementLearning {
@@ -28,9 +28,7 @@ namespace ReinforcementLearning {
             float gamma = 0.9f; // facteur de dévaluation
             float delta;
             float theta = 0.01f;
-            int iterations = 0;
             do {
-                ++iterations;
                 delta = 0;
                 for (var index = 0; index < possibleStates.Count; ++index) {
                     var state = possibleStates[index];
@@ -52,7 +50,6 @@ namespace ReinforcementLearning {
                 }
                 
             } while (delta > theta);    // until delta < theta
-            Debug.Log(iterations + " iterations");
             
             // build end policy
             List<Movement> policy = new List<Movement>();
@@ -64,8 +61,6 @@ namespace ReinforcementLearning {
                 nextState = nextState.GetNextState(nextState.bestAction, possibleStates, out _, out _);
                 if (tmp.Equals(nextState)) break;
             } while (nextState != null);
-
-            Debug.Log("Policy : " + policy.Count);
 
             return policy;
         }

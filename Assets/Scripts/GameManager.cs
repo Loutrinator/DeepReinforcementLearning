@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using ReinforcementLearning;
+using ReinforcementLearning.Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -35,7 +36,7 @@ public class GameManager : MonoBehaviour {
     }
 
     private IEnumerator MovePlayer(List<Movement> moves) {
-        var wait = new WaitForSeconds(0.5f);
+        var wait = new WaitForSeconds(0.25f);
         foreach (var move in moves) {
             yield return wait;
             player.Move(GetDirection(move));

@@ -1,5 +1,4 @@
-﻿using ReinforcementLearning;
-using UnityEngine;
+﻿using UnityEngine;
 
 public abstract class GridPlayer : MonoBehaviour {
     public float gridSize = 1;

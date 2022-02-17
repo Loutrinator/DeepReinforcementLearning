@@ -2,9 +2,26 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="68799054-620c-47a7-84d0-58572fd78ddd" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Common.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Common/Layers.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/Common/Layers.cs.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/GameGrid.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common.meta" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/GridUtils.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/GridUtils.cs.meta" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/GridWorld.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/GridWorld.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Arrival.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Arrival.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridWorld/GridWorldPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridWorld/GridWorldPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/DynamicProgramming.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/DynamicProgramming.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GameGrid.cs" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GameGrid.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameGrid.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/GridState.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/GridState.cs.meta" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Movement.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/Movement.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Movement.cs.meta" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/Movement.cs.meta" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,12 +40,16 @@
     </file-type-list>
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fd824cfb55004855b9e6d51b008c90e4568778/df/f734cd01/Object.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Arrival.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fd824cfb55004855b9e6d51b008c90e4568778/91/c0b36266/Single.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/MenuOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/ScrollRect.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.8.1/Runtime/ForwardRendererData.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.render-pipelines.universal@10.8.1/Runtime/Passes/DepthOnlyPass.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -86,7 +107,7 @@
       <updated>1645003585582</updated>
       <workItem from="1645003591205" duration="6164000" />
       <workItem from="1645018783275" duration="8873000" />
-      <workItem from="1645028067476" duration="31349000" />
+      <workItem from="1645028067476" duration="34232000" />
     </task>
     <servers />
   </component>

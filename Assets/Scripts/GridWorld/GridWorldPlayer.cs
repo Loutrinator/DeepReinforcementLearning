@@ -1,13 +1,13 @@
 using System.Collections.Generic;
-using ReinforcementLearning;
-using UnityEngine;
+using Common;
+using ReinforcementLearning.Common;
 
 namespace GridWorld {
     public class GridWorldPlayer : GridPlayer
     {
         public override int[][][] GetAllPossibleStates(GameGrid grid) {
-            int layerPlayer = LayerMask.NameToLayer("Player");
-            int layerGround = LayerMask.NameToLayer("Ground");
+            int layerPlayer = Layers.IntValue("Player");
+            int layerGround = Layers.IntValue("Ground");
             
             var result = new List<int[][]>();
 

@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Common;
 using UnityEngine;
 
-namespace ReinforcementLearning {
+namespace ReinforcementLearning.Common {
     public class GridState {
         public int[][] grid;
         public float value;
@@ -26,7 +27,7 @@ namespace ReinforcementLearning {
         }
 
         public int GetReward(Movement action, List<GridState> possibleStates, out GridState nextState) {
-            var layerArrival = LayerMask.NameToLayer("Arrival");
+            var layerArrival = Layers.IntValue("Arrival");
             nextState = GetNextState(action, possibleStates, out var playerI, out var playerJ);
             if (grid[playerI][playerJ] == layerArrival) {
                 return 1;
@@ -36,9 +37,9 @@ namespace ReinforcementLearning {
         }
 
         public GridState GetNextState(Movement action, List<GridState> possibleStates, out int playerNewI, out int playerNewJ) {
-            var layerPlayer = LayerMask.NameToLayer("Player");
-            var layerGround = LayerMask.NameToLayer("Ground");
-            var layerArrival = LayerMask.NameToLayer("Arrival");
+            var layerPlayer = Layers.IntValue("Player");
+            var layerGround = Layers.IntValue("Ground");
+            var layerArrival = Layers.IntValue("Arrival");
             var nextState = new GridState(grid.CloneGrid());
             playerNewI = -1;
             playerNewJ = -1;
@@ -92,15 +93,6 @@ namespace ReinforcementLearning {
                 }
             }
             return true;
-        }
-
-        public override int GetHashCode() {
-            unchecked {
-                var hashCode = (grid != null ? grid.GetHashCode() : 0);
-                hashCode = (hashCode * 397) ^ value.GetHashCode();
-                hashCode = (hashCode * 397) ^ (int)bestAction;
-                return hashCode;
-            }
         }
     }
 }
