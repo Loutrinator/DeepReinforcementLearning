@@ -3,7 +3,7 @@ using UnityEngine;
 
 public abstract class GridPlayer : MonoBehaviour {
     public float gridSize = 1;
-    [SerializeField] private LayerMask walkableMask;
+    [SerializeField] protected LayerMask walkableMask;
 
     public virtual void Move(Vector2 direction) {
         Vector3 destination = transform.position + (direction.x * Vector3.right + direction.y * Vector3.up) * gridSize;
