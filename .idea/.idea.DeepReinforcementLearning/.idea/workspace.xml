@@ -3,11 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="68799054-620c-47a7-84d0-58572fd78ddd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridPlayer.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GridWorld/GridWorldPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GridWorld/GridWorldPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/DynamicProgramming.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/DynamicProgramming.cs" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GameGrid.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GameGrid.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/GridState.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -87,7 +84,7 @@
       <updated>1645003585582</updated>
       <workItem from="1645003591205" duration="6164000" />
       <workItem from="1645018783275" duration="8873000" />
-      <workItem from="1645028067476" duration="7683000" />
+      <workItem from="1645028067476" duration="8591000" />
     </task>
     <servers />
   </component>
