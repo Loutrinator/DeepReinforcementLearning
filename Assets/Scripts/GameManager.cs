@@ -28,7 +28,7 @@ public class GameManager : MonoBehaviour {
         gameGrid = new GameGrid();
         gameGrid.Init(groundPlane);
 
-        DynamicProgramming.PolicyIteration(player, gameGrid);
+        DynamicProgramming.ValueIteration(player, gameGrid);
     }
 
     public void OnPlayerSuccess() {

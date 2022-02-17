@@ -2,15 +2,6 @@
 using UnityEngine;
 
 namespace ReinforcementLearning {
-    // ReSharper disable once InconsistentNaming
-    internal class MDPState {
-        public Movement action;
-        public float value;
-
-        public MDPState(Movement actionP) {
-            action = actionP;
-        }
-    }
     public static class DynamicProgramming {
         public static void PolicyIteration(GridPlayer player, GameGrid grid) {
             // init
@@ -25,13 +16,17 @@ namespace ReinforcementLearning {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
+            string log = "";
             foreach (var possibleState in possibleGridStates) {
                 GridState state = new GridState(possibleState) {
                     value = 0
                 };
+                log += state + "\n";
                 possibleStates.Add(state);
             }
+            Debug.Log(log);
 
+            return;
             float delta;
             float theta = 0.7f;
             do {
@@ -40,6 +35,7 @@ namespace ReinforcementLearning {
                     float temp = state.value;
                     
                     // todo
+                    //state.value = 
 
                     delta = Mathf.Max(delta, Mathf.Abs(temp - state.value));
                 }

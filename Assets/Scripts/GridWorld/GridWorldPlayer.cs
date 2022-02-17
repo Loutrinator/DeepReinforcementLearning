@@ -31,20 +31,6 @@ namespace GridWorld {
                 }
             }
 
-            string log = "";
-            foreach (var res in result) {
-                for (int i = 0; i < gridHeight; ++i) {
-                    for (int j = 0; j < gridWidth; ++j) {
-                        log += res[i][j] + " ";
-                    }
-    
-                    log += "\n";
-                }
-    
-                log += "\n\n";
-            }
-            Debug.Log(log);
-
             return result.ToArray();
         }
     }

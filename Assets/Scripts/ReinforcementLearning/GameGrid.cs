@@ -12,9 +12,8 @@ namespace ReinforcementLearning {
             var groundPos = groundPlane.position;
             var firstPos = new Vector3(groundPos.x - groundSize.x / 2, groundPos.y - groundSize.y / 2, 0);
 
-            string log = "";
             var grid = new int[(int)groundSize.y][];
-            for (int i = grid.Length - 1; i >= 0; --i) {
+            for (int i = 0; i < grid.Length; ++i) {
                 grid[i] = new int[(int)groundSize.x];
 
                 for (int j = 0; j < grid[i].Length; ++j) {
@@ -26,15 +25,12 @@ namespace ReinforcementLearning {
                     else {
                         grid[i][j] = -1;
                     }
-                
-                    log = log + grid[i][j] + " ";
                 }
-
-                log += "\n";
             }
-
+            
             gridState = new GridState(grid);
-            Debug.Log(log);
+
+            Debug.Log(gridState.ToString());
         }
     }
 
