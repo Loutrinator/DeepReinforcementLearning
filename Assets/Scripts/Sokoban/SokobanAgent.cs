@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
 using ReinforcementLearning;
+using ReinforcementLearning.Common;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Sokoban
 {
-    public class SokobanPlayer : GridPlayer
+    public class SokobanAgent : AiAgent
     {
         [SerializeField] private LayerMask crateMask;
         private int layerPlayer;
@@ -96,6 +97,14 @@ namespace Sokoban
 
             return gridList.ToArray();
             
+        }
+
+        public override int GetReward(GridState state, Movement action, List<GridState> possibleStates, out GridState nextState) {
+            throw new NotImplementedException();
+        }
+
+        public override GridState GetNextState(GridState state, Movement action, List<GridState> possibleStates, out int playerNewI, out int playerNewJ) {
+            throw new NotImplementedException();
         }
 
         private List<int[][]> GenerateAllPossibleStates(List<int[][]> previousGrids, int remainingcrates, int gridWidth, int gridHeight)

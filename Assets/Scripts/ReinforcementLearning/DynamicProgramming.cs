@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace ReinforcementLearning {
     public static class DynamicProgramming {
-        public static void PolicyIteration(GridPlayer player, GameGrid grid) {
+        public static void PolicyIteration(AiAgent player, GameGrid grid) {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
             foreach (var possibleState in possibleGridStates) {
@@ -14,7 +14,7 @@ namespace ReinforcementLearning {
                 };
             }
         }
-        public static List<Movement> ValueIteration(GridPlayer player, GameGrid grid) {
+        public static List<Movement> ValueIteration(AiAgent player, GameGrid grid) {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
@@ -36,7 +36,7 @@ namespace ReinforcementLearning {
 
                     float max = 0;
                     foreach (Movement actionType in Enum.GetValues(typeof(Movement))) {
-                        float reward = state.GetReward(actionType, possibleStates, out var nextStateTmp);
+                        float reward = player.GetReward(state, actionType, possibleStates, out var nextStateTmp);
                         float currentVal = reward + gamma * (nextStateTmp?.value ?? 0);
                         if (max < currentVal) {
                             state.bestAction = actionType;
@@ -58,7 +58,7 @@ namespace ReinforcementLearning {
                 var tmp = nextState;
                 nextState = possibleStates.Find(state => state.Equals(nextState));
                 policy.Add(nextState.bestAction);
-                nextState = nextState.GetNextState(nextState.bestAction, possibleStates, out _, out _);
+                nextState = player.GetNextState(nextState, nextState.bestAction, possibleStates, out _, out _);
                 if (tmp.Equals(nextState)) break;
             } while (nextState != null);
 

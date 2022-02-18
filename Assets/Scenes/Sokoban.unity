@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028334, g: 0.2257134, b: 0.30692226, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -527,6 +527,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5373017267925218185, guid: 0eb0eee0bb86e6540817d52dc1ca29e4, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 5373017267925218185, guid: 0eb0eee0bb86e6540817d52dc1ca29e4, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -0.5000019
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0eb0eee0bb86e6540817d52dc1ca29e4, type: 3}
 --- !u!1 &1036243256
@@ -1002,7 +1010,7 @@ PrefabInstance:
     - target: {fileID: 2374109967920793592, guid: 6f78de722e11f0a44912a97ce7913e18, type: 3}
       propertyPath: onMove.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1725995055}
     - target: {fileID: 2374109967920793592, guid: 6f78de722e11f0a44912a97ce7913e18, type: 3}
       propertyPath: onMove.m_PersistentCalls.m_Calls.Array.data[0].m_CallState
       value: 2
@@ -1013,7 +1021,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2374109967920793592, guid: 6f78de722e11f0a44912a97ce7913e18, type: 3}
       propertyPath: onMove.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: GridPlayer, Assembly-CSharp
+      value: Sokoban.SokobanPlayer, Assembly-CSharp
       objectReference: {fileID: 0}
     - target: {fileID: 2374109967920793592, guid: 6f78de722e11f0a44912a97ce7913e18, type: 3}
       propertyPath: onMove.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
