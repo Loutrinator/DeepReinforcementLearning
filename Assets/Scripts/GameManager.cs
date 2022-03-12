@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance => _instance;
     public StateDelegate stateDelegate;
     
-    [SerializeField] private AiAgent player;
+    [SerializeField] private GridPlayer player;
     [SerializeField] private Transform groundPlane;
 
     [SerializeField] private Canvas successCanvas;
@@ -43,19 +43,16 @@ public class GameManager : MonoBehaviour {
     }
 
     private IEnumerator MovePlayer(List<Movement> moves) {
-        Debug.Log("MovePlayer");
         var wait = new WaitForSeconds(0.25f);
         foreach (var move in moves) {
             yield return wait;
             Vector2 dir = GetDirection(move);
-            Debug.Log("DIR " + dir.x  + " " + dir.y);
             player.Move(dir);
         }
         yield return null;
     }
 
     private Vector2 GetDirection(Movement move) {
-        Debug.Log("GetDirection");
         switch (move) {
             case Movement.Down:
                 return new Vector2(0, -1);
