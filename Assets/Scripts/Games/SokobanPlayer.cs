@@ -8,7 +8,7 @@ using UnityEngine;
 
 namespace Games
 {
-    public class SokobanPlayer : GridPlayer, StateDelegate
+    public class SokobanPlayer : AiAgent, StateDelegate
     {
         [SerializeField] private LayerMask crateMask;
         private int layerPlayer;

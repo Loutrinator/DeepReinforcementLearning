@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace ReinforcementLearning {
     public static class DynamicProgramming {
-        public static void PolicyIteration(GridPlayer player, GameGrid grid) {
+        public static void PolicyIteration(AiAgent player, GameGrid grid) {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
             foreach (var possibleState in possibleGridStates) {
@@ -16,7 +16,7 @@ namespace ReinforcementLearning {
                 };
             }
         }
-        public static List<Movement> ValueIteration(GridPlayer player, GameGrid grid) {
+        public static List<Movement> ValueIteration(AiAgent player, GameGrid grid) {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();

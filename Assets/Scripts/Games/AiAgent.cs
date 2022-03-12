@@ -6,7 +6,7 @@ using UnityEngine;
 namespace Games
 {
     
-    public abstract class GridPlayer : MonoBehaviour {
+    public abstract class AiAgent : MonoBehaviour {
         public float gridSize = 1;
         [SerializeField] protected LayerMask walkableMask;
 

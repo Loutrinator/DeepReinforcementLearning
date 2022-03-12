@@ -5,7 +5,7 @@ using UnityEditor.UI;
 using UnityEngine;
 
 namespace Games {
-    public class GridWorldPlayer : GridPlayer, StateDelegate
+    public class GridWorldPlayer : AiAgent, StateDelegate
     {
 
         private void Start()

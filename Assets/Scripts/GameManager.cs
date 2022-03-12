@@ -12,7 +12,7 @@ public class GameManager : MonoBehaviour {
     public static GameManager Instance => _instance;
     public StateDelegate stateDelegate;
     
-    [SerializeField] private GridPlayer player;
+    [SerializeField] private AiAgent player;
     [SerializeField] private Transform groundPlane;
 
     [SerializeField] private Canvas successCanvas;
