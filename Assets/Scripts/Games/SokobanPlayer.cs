@@ -175,7 +175,7 @@ namespace Games
                         if (layer == layerArrival || layer == layerGround) {
                             grid[i][j] = remainingcrates == 0 ? layerPlayer : layerCrate;
                             newGrid.Add(grid.CloneGrid());  // just a copy
-                            grid[i][j] = layer;
+                            grid[i][j] = layer;//TODO: peut etre retirer cette ligne
                         }
                     }
                 }    

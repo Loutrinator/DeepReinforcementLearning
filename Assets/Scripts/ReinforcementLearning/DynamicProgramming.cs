@@ -8,9 +8,9 @@ using Random = UnityEngine.Random;
 
 namespace ReinforcementLearning {
     public static class DynamicProgramming {
-        public static void PolicyIteration(AiAgent player, GameGrid grid) {
+        public static List<Movement> PolicyIteration(AiAgent agent, GameGrid grid) {
             // init
-            var possibleGridStates = player.GetAllPossibleStates(grid);
+            var possibleGridStates = agent.GetAllPossibleStates(grid);
             //Generation des etats de départ avec direction random
             var possibleStates = new List<GridState>();
             foreach (var possibleState in possibleGridStates)
@@ -24,11 +24,26 @@ namespace ReinforcementLearning {
             float gamma = 0.9f;
             float theta = 0.01f;
             PolicyEvaluation(possibleStates, gamma, theta);
+            
+            GridState nextState = grid.gridState;
+            List<Movement> policy = new List<Movement>();
+            int maxItterations = 10;
+            do
+            {
+                maxItterations--;
+                var tmp = nextState;
+                nextState = possibleStates.Find(state => state.Equals(nextState));
+                policy.Add(nextState.bestAction);
+                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.bestAction, possibleStates, out _, out _);
+                if (tmp.Equals(nextState)) break;
+            } while (nextState != null && maxItterations >= 0);
+
+            return policy;
         }
 
         private static void PolicyEvaluation(List<GridState> possibleStates, float gamma, float theta)
         {
-            int maxIterations = 1000;
+            int maxIterations = 10;
 
 
             float delta = 0;
@@ -109,9 +124,9 @@ namespace ReinforcementLearning {
             PolicyEvaluation(possibleStates, gamma, theta);;
         }
 
-        public static List<Movement> ValueIteration(GridPlayer player, GameGrid grid) {
+        public static List<Movement> ValueIteration(AiAgent agent, GameGrid grid) {
             // init
-            var possibleGridStates = player.GetAllPossibleStates(grid);
+            var possibleGridStates = agent.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
             foreach (var possibleState in possibleGridStates) {
                 GridState state = new GridState(possibleState) {
