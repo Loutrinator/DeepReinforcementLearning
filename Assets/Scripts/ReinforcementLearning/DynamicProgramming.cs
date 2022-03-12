@@ -4,19 +4,112 @@ using Common;
 using Games;
 using ReinforcementLearning.Common;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace ReinforcementLearning {
     public static class DynamicProgramming {
         public static void PolicyIteration(AiAgent player, GameGrid grid) {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
-            foreach (var possibleState in possibleGridStates) {
-                GridState state = new GridState(possibleState) {
-                    value = 0
-                };
+            //Generation des etats de départ avec direction random
+            var possibleStates = new List<GridState>();
+            foreach (var possibleState in possibleGridStates)
+            {
+                GridState state = new GridState(possibleState);
+                int random = Random.Range(0, 4);
+                state.bestAction = (Movement)random;
+                possibleStates.Add(state);
             }
+            
+            float gamma = 0.9f;
+            float theta = 0.01f;
+            PolicyEvaluation(possibleStates, gamma, theta);
         }
-        public static List<Movement> ValueIteration(AiAgent player, GameGrid grid) {
+
+        private static void PolicyEvaluation(List<GridState> possibleStates, float gamma, float theta)
+        {
+            int maxIterations = 1000;
+
+
+            float delta = 0;
+            do
+            {
+                maxIterations--;
+                foreach (GridState gridState in possibleStates)
+                {
+                    float currentValue = gridState.value; //on récupère la valeur actuelle de l'état
+                    float actionValue = 0;
+                    GridState nextState =
+                        GameManager.Instance.stateDelegate.GetNextState(gridState, gridState.bestAction, possibleStates, out _,
+                            out _);
+                    if (nextState != null)
+                    {
+                        float reward = GameManager.Instance.stateDelegate.GetReward(nextState, nextState.bestAction,
+                            possibleStates, out _);
+                        float tmpStateValue = reward +
+                                              gamma * nextState.value;
+                        if (actionValue < tmpStateValue)
+                        {
+                            actionValue = tmpStateValue;
+                        }
+                    }
+                    else
+                    {
+                        float reward = GameManager.Instance.stateDelegate.GetReward(gridState, gridState.bestAction,
+                            possibleStates, out _);
+                        actionValue = reward;
+                    }
+
+                    gridState.value = actionValue;
+                    delta = Mathf.Max(delta, Mathf.Abs(currentValue - actionValue));
+                }
+            } while (delta > theta && maxIterations >= 0);
+
+
+            bool stable = true;
+            foreach (GridState state in possibleStates)
+            {
+                if (state != null)
+                {
+                    Movement currentMovement = state.bestAction;
+                    float actionValue = 0;
+                    for (int i = 0; i < 4; i++)
+                    {
+                        Movement move = (Movement)i;
+
+                        GridState nextState =
+                            GameManager.Instance.stateDelegate.GetNextState(state, move, possibleStates, out _, out _);
+
+                        if (nextState != null)
+                        {
+                            float reward = GameManager.Instance.stateDelegate.GetReward(nextState, nextState.bestAction,
+                                possibleStates, out _);
+                            float tmpStateValue = reward +
+                                                  gamma * nextState.value;
+                            if (actionValue < tmpStateValue)
+                            {
+                                actionValue = tmpStateValue;
+                                state.bestAction = move;
+                            }
+                        }
+                    }
+
+                    if (state.bestAction != currentMovement)
+                    {
+                        stable = false;
+                    }
+                }
+            }
+
+            if (stable)
+            {
+                return;
+            }
+
+            PolicyEvaluation(possibleStates, gamma, theta);;
+        }
+
+        public static List<Movement> ValueIteration(GridPlayer player, GameGrid grid) {
             // init
             var possibleGridStates = player.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
