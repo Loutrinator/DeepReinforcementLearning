@@ -4,18 +4,18 @@ using ReinforcementLearning.Common;
 using UnityEditor.UI;
 using UnityEngine;
 
-namespace GridWorld {
+namespace Games {
     public class GridWorldPlayer : GridPlayer, StateDelegate
     {
 
         private void Start()
         {
+            
             GameManager.Instance.stateDelegate = this;
         }
 
         public override void Move(Vector2 direction)
         {
-            Debug.Log("DEFAULT : Moving towards : " + direction.x + direction.y);
             Vector3 destination = transform.position + (direction.x * Vector3.right + direction.y * Vector3.up) * gridSize;
             if (Physics.Raycast(destination + Vector3.back * 5, Vector3.forward, out var hit, 10))
             {

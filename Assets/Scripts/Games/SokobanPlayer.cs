@@ -6,7 +6,7 @@ using ReinforcementLearning.Common;
 using UnityEditor.PackageManager;
 using UnityEngine;
 
-namespace Sokoban
+namespace Games
 {
     public class SokobanPlayer : GridPlayer, StateDelegate
     {
@@ -21,17 +21,20 @@ namespace Sokoban
         private int width = 0;
         private int height = 0;
 
-        private void Start()
+        private void Awake()
         {
             layerPlayer = Layers.IntValue("Player");//LayerMask.NameToLayer("Player");
             layerCrate = Layers.IntValue("Crate");
             layerGround = Layers.IntValue("Ground");
             layerArrival = Layers.IntValue("Arrival");
             
-            GameManager.Instance.stateDelegate = this;
-            
         }
-        
+
+        private void Start()
+        {
+            GameManager.Instance.stateDelegate = this;
+        }
+
         public override void Move(Vector2 direction)
         {
             Debug.Log("SOKOBAN : Moving towards : " + direction.x + direction.y);

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Common;
+using Games;
 using ReinforcementLearning;
 using ReinforcementLearning.Common;
 using UnityEngine;
@@ -28,11 +29,14 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
+        
         successCanvas.gameObject.SetActive(false);
-
         gameGrid = new GameGrid();
         gameGrid.Init(groundPlane);
+    }
 
+    public void SolveGame()
+    {
         var moves = DynamicProgramming.ValueIteration(player, gameGrid);
         Debug.Log("moves " + moves.Count);
         StartCoroutine(MovePlayer(moves));

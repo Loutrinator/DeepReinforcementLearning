@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Common;
+using Games;
 using ReinforcementLearning.Common;
 using UnityEngine;
 
@@ -34,12 +36,16 @@ namespace ReinforcementLearning {
                 maxItterations--;
                 delta = 0;
                 for (var index = 0; index < possibleStates.Count; ++index) {
-                    var state = possibleStates[index];
+                    GridState state = possibleStates[index];
                     float temp = state.value;
 
                     float max = 0;
-                    foreach (Movement actionType in Enum.GetValues(typeof(Movement))) {
-                        float reward = GameManager.Instance.stateDelegate.GetReward(state,actionType, possibleStates, out var nextStateTmp);
+                    foreach (Movement actionType in Enum.GetValues(typeof(Movement)))
+                    {
+                        GameManager gm = GameManager.Instance;
+                        StateDelegate stateDelegate = gm.stateDelegate;
+                        
+                        float reward = stateDelegate.GetReward(state,actionType, possibleStates, out var nextStateTmp);
                         float currentVal = reward + gamma * (nextStateTmp?.value ?? 0);
                         if (max < currentVal) {
                             state.bestAction = actionType;
