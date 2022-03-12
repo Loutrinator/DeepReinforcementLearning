@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Common;
 using ReinforcementLearning;
 using ReinforcementLearning.Common;
 using UnityEngine;
@@ -8,6 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
+    public StateDelegate stateDelegate;
     
     [SerializeField] private GridPlayer player;
     [SerializeField] private Transform groundPlane;
@@ -32,19 +34,24 @@ public class GameManager : MonoBehaviour {
         gameGrid.Init(groundPlane);
 
         var moves = DynamicProgramming.ValueIteration(player, gameGrid);
+        Debug.Log("moves " + moves.Count);
         StartCoroutine(MovePlayer(moves));
     }
 
     private IEnumerator MovePlayer(List<Movement> moves) {
+        Debug.Log("MovePlayer");
         var wait = new WaitForSeconds(0.25f);
         foreach (var move in moves) {
             yield return wait;
-            player.Move(GetDirection(move));
+            Vector2 dir = GetDirection(move);
+            Debug.Log("DIR " + dir.x  + " " + dir.y);
+            player.Move(dir);
         }
         yield return null;
     }
 
     private Vector2 GetDirection(Movement move) {
+        Debug.Log("GetDirection");
         switch (move) {
             case Movement.Down:
                 return new Vector2(0, -1);

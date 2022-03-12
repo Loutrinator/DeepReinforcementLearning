@@ -28,7 +28,10 @@ namespace ReinforcementLearning {
             float gamma = 0.9f; // facteur de dévaluation
             float delta;
             float theta = 0.01f;
+
+            int maxItterations = 100;
             do {
+                maxItterations--;
                 delta = 0;
                 for (var index = 0; index < possibleStates.Count; ++index) {
                     var state = possibleStates[index];
@@ -36,7 +39,7 @@ namespace ReinforcementLearning {
 
                     float max = 0;
                     foreach (Movement actionType in Enum.GetValues(typeof(Movement))) {
-                        float reward = state.GetReward(actionType, possibleStates, out var nextStateTmp);
+                        float reward = GameManager.Instance.stateDelegate.GetReward(state,actionType, possibleStates, out var nextStateTmp);
                         float currentVal = reward + gamma * (nextStateTmp?.value ?? 0);
                         if (max < currentVal) {
                             state.bestAction = actionType;
@@ -48,20 +51,54 @@ namespace ReinforcementLearning {
 
                     delta = Mathf.Max(delta, Mathf.Abs(temp - state.value));
                 }
-                
-            } while (delta > theta);    // until delta < theta
+
+
+            } while (delta > theta && maxItterations >= 0);    // until delta < theta
             
             // build end policy
             List<Movement> policy = new List<Movement>();
             var nextState = grid.gridState;
-            do {
+            
+            
+            maxItterations = 100;
+            do
+            {
+                maxItterations--;
                 var tmp = nextState;
                 nextState = possibleStates.Find(state => state.Equals(nextState));
                 policy.Add(nextState.bestAction);
-                nextState = nextState.GetNextState(nextState.bestAction, possibleStates, out _, out _);
+                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.bestAction, possibleStates, out _, out _);
                 if (tmp.Equals(nextState)) break;
-            } while (nextState != null);
+            } while (nextState != null && maxItterations >= 0);
 
+            string possibleStatesVals = "Values : ";
+            foreach (var state in possibleStates)
+            {
+                possibleStatesVals += state.value + " ";
+            }
+            Debug.Log(possibleStatesVals);
+            string policyLog = "Policy (" + policy.Count + ") :";
+            foreach (var move in policy)
+            {
+                string dirname = "";
+                switch (move)
+                {
+                    case Movement.Right:
+                        dirname = ">";
+                        break;
+                    case Movement.Down:
+                        dirname = "v";
+                        break;
+                    case Movement.Left:
+                        dirname = "<";
+                        break;
+                    case Movement.Up:
+                        dirname = "^";
+                        break;
+                }
+                policyLog += " " + dirname;
+            }
+            Debug.Log(policyLog);
             return policy;
         }
     }
