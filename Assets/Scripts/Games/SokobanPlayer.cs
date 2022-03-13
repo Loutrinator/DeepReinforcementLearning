@@ -207,7 +207,7 @@ namespace Games
                 }
             }
 
-            return countProperlyPlacedCrates;
+            return countProperlyPlacedCrates == arrivalPositions.Count ? 1 : 0;
         }
 
         public GridState GetNextState(GridState currentState, Movement action, List<GridState> possibleStates, out int playerNewI,
