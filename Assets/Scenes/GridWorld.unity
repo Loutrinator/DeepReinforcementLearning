@@ -3307,6 +3307,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1886351981094558845}
     - target: {fileID: 2798700009229588778, guid: 419b6e0de0b22824d82aa75f7dc2f9e1, type: 3}
+      propertyPath: algorithm
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2798700009229588778, guid: 419b6e0de0b22824d82aa75f7dc2f9e1, type: 3}
       propertyPath: groundGrid
       value: 
       objectReference: {fileID: 1336379345}

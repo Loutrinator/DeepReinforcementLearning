@@ -1,16 +1,25 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Timers;
 using Common;
 using Games;
 using ReinforcementLearning;
 using ReinforcementLearning.Common;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using Debug = UnityEngine.Debug;
 
+public enum SolvingAlgorithm
+{
+    ValueItteration, PolicyItteration, MCTS, Sarsa, QLearning
+}
 public class GameManager : MonoBehaviour {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
     public StateDelegate stateDelegate;
+
+    [SerializeField] private SolvingAlgorithm algorithm = SolvingAlgorithm.ValueItteration;
     
     [SerializeField] private AiAgent player;
     [SerializeField] private Transform groundPlane;
@@ -37,8 +46,28 @@ public class GameManager : MonoBehaviour {
 
     public void SolveGame()
     {
-        var moves = DynamicProgramming.ValueIteration(player, gameGrid);
-        Debug.Log("moves " + moves.Count);
+        var stopwatch = new Stopwatch();
+        
+        stopwatch.Start();
+        
+        List<Movement> moves;
+        switch (algorithm)
+        {
+            case SolvingAlgorithm.ValueItteration:
+                moves = DynamicProgramming.ValueIteration(player, gameGrid);
+                break;
+            case SolvingAlgorithm.PolicyItteration:
+                moves = DynamicProgramming.PolicyIteration(player, gameGrid);
+                break;
+            default:
+                Debug.LogError("Algorithm not implemented yet.");
+                moves = new List<Movement>();
+                break;
+        }
+        
+        stopwatch.Stop();
+        Debug.Log("Solved in " + (stopwatch.ElapsedMilliseconds/1000f) + " s ! Moves : " + moves.Count);
+        
         StartCoroutine(MovePlayer(moves));
     }
 
