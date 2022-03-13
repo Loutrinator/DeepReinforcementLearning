@@ -37,7 +37,6 @@ namespace Games
 
         public override void Move(Vector2 direction)
         {
-            Debug.Log("SOKOBAN : Moving towards : " + direction.x + direction.y);
             Vector3 dir = (direction.x * transform.right + direction.y * transform.up) * gridSize;
             Vector3 destination = transform.position + dir;
             
@@ -45,7 +44,6 @@ namespace Games
             if (Physics.Raycast(destination - transform.forward * 5, transform.forward, out var hit, 10)) {
                 if (walkableMask == (walkableMask | (1 << hit.collider.gameObject.layer)))
                 {
-                    Debug.Log("Move player");
                     transform.position = destination;
                 }
                 if(crateMask == (crateMask | (1 << hit.collider.gameObject.layer)))
@@ -56,7 +54,6 @@ namespace Games
 
                         if (walkableMask == (walkableMask | (1 << hit2.collider.gameObject.layer)))
                         {
-                            Debug.Log("Crate moves");
                             hit.transform.position += dir;
                             transform.position = destination;
                         }
@@ -210,7 +207,7 @@ namespace Games
                 }
             }
 
-            return countProperlyPlacedCrates;
+            return countProperlyPlacedCrates == arrivalPositions.Count ? 1 : 0;
         }
 
         public GridState GetNextState(GridState currentState, Movement action, List<GridState> possibleStates, out int playerNewI,

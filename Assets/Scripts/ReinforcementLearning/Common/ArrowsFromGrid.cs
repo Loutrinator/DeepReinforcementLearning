@@ -10,7 +10,7 @@ namespace ReinforcementLearning.Common {
             for (int i = 0; i < grid.Length; ++i) {
                 arrowGrid[i] = new Transform[grid[i].Length];
                 for (int j = 0; j < grid[i].Length; ++j) {
-                    Vector3 arrowPos = firstPos + j * Vector3.right + i * Vector3.up + new Vector3(0.5f, 0.5f, 0);
+                    Vector3 arrowPos = firstPos + j * Vector3.right + i * Vector3.up + new Vector3(0.5f, 0.5f, -0.05f);
                     var go = Instantiate(arrowPrefab, transform);
                     go.transform.position = arrowPos;
                     arrowGrid[i][j] = go.transform;
