@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028352, g: 0.22571376, b: 0.30692244, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -1982,6 +1982,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1203668194}
+  - component: {fileID: 1203668195}
   m_Layer: 0
   m_Name: ArrowsGrid
   m_TagString: Untagged
@@ -2003,6 +2004,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1203668195
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1203668193}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3d37a66e01f041c42906d6d34ac387da, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  arrowPrefab: {fileID: 7474714840216833596, guid: b0802566db0ba204b9f0a23b249efaa2, type: 3}
 --- !u!1 &1214994605
 GameObject:
   m_ObjectHideFlags: 0
@@ -3300,6 +3314,10 @@ PrefabInstance:
       propertyPath: groundPlane
       value: 
       objectReference: {fileID: 1336379345}
+    - target: {fileID: 2798700009229588778, guid: 419b6e0de0b22824d82aa75f7dc2f9e1, type: 3}
+      propertyPath: arrowsManager
+      value: 
+      objectReference: {fileID: 1203668195}
     - target: {fileID: 4360359947561686827, guid: 419b6e0de0b22824d82aa75f7dc2f9e1, type: 3}
       propertyPath: m_Name
       value: GameManager

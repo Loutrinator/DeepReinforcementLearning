@@ -6,7 +6,7 @@ using UnityEngine;
 public class GameGrid {
     public GridState gridState;
 
-    public void Init(Transform groundPlane) {
+    public Vector3 Init(Transform groundPlane) {
         var groundScale = groundPlane.lossyScale;
         var groundSize = new Vector2Int(Mathf.RoundToInt(groundScale.x * 10), Mathf.RoundToInt(groundScale.z * 10));
         var groundPos = groundPlane.position;
@@ -27,7 +27,8 @@ public class GameGrid {
                 }
             }
         }
-            
+        
         gridState = new GridState(grid);
+        return firstPos;
     }
 }

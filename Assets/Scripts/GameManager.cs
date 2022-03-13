@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour {
     
     [SerializeField] private AiAgent player;
     [SerializeField] private Transform groundPlane;
+    [SerializeField] private ArrowsFromGrid arrowsManager;
 
     [SerializeField] private Canvas successCanvas;
 
@@ -29,10 +30,10 @@ public class GameManager : MonoBehaviour {
     }
 
     private void Start() {
-        
         successCanvas.gameObject.SetActive(false);
         gameGrid = new GameGrid();
-        gameGrid.Init(groundPlane);
+        var firstPos = gameGrid.Init(groundPlane);
+        arrowsManager.Init(gameGrid.gridState.grid, firstPos);
     }
 
     public void SolveGame()
