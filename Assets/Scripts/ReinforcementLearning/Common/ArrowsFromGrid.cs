@@ -19,7 +19,6 @@ namespace ReinforcementLearning.Common {
         }
 
         public Transform GetArrow(int i, int j) {
-            Debug.Log("i : " + i + " ; j : " + j + " ; size : " + arrowGrid.Length);
             return arrowGrid[i][j];
         }
     }

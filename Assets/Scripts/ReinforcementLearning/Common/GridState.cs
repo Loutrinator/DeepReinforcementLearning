@@ -36,7 +36,6 @@ namespace ReinforcementLearning.Common {
         public void SetArrow() {
             int i = 0;
             int j = 0;
-            Debug.Log("GRID LENGTH " + grid.Length);
             for (i = grid.Length - 1; i >= 0; --i) {
                 for (j = grid[i].Length - 1; j >= 0; --j) {
                     if (grid[i][j] == LayerMask.NameToLayer("Player")) {
