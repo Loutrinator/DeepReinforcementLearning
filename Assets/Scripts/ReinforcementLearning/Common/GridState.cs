@@ -4,10 +4,48 @@ namespace ReinforcementLearning.Common {
     public class GridState {
         public int[][] grid;
         public float value;
-        public Movement bestAction = Movement.Down;
+
+        private Movement _bestAction = Movement.Down;
+        public Movement BestAction {
+            get => _bestAction;
+            set {
+                _bestAction = value;
+                switch (value) {
+                    case Movement.Down:
+                        _gridArrow.rotation = Quaternion.Euler(0, 0, -90);
+                        break;
+                    case Movement.Left:
+                        _gridArrow.rotation = Quaternion.Euler(0, 180, 0);
+                        break;
+                    case Movement.Right:
+                        _gridArrow.rotation = Quaternion.Euler(0, 0, 0);
+                        break;
+                    case Movement.Up:
+                        _gridArrow.rotation = Quaternion.Euler(0, 0, 90);
+                        break;
+                }
+            }
+        }
+
+        private Transform _gridArrow;
 
         public GridState(int[][] gridP) {
             grid = gridP;
+        }
+
+        public void SetArrow() {
+            int i = 0;
+            int j = 0;
+            Debug.Log("GRID LENGTH " + grid.Length);
+            for (i = grid.Length - 1; i >= 0; --i) {
+                for (j = grid[i].Length - 1; j >= 0; --j) {
+                    if (grid[i][j] == LayerMask.NameToLayer("Player")) {
+                        
+                        _gridArrow = GameManager.Instance.arrowsManager.GetArrow(i, j);
+                        break;
+                    }
+                }
+            }
         }
 
         public override string ToString() {

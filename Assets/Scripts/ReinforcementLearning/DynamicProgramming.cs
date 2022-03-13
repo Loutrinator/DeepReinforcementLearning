@@ -17,7 +17,7 @@ namespace ReinforcementLearning {
             {
                 GridState state = new GridState(possibleState);
                 int random = Random.Range(0, 4);
-                state.bestAction = (Movement)random;
+                state.BestAction = (Movement)random;
                 possibleStates.Add(state);
             }
             
@@ -33,8 +33,8 @@ namespace ReinforcementLearning {
                 maxItterations--;
                 var tmp = nextState;
                 nextState = possibleStates.Find(state => state.Equals(nextState));
-                policy.Add(nextState.bestAction);
-                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.bestAction, possibleStates, out _, out _);
+                policy.Add(nextState.BestAction);
+                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.BestAction, possibleStates, out _, out _);
                 if (tmp.Equals(nextState)) break;
             } while (nextState != null && maxItterations >= 0);
 
@@ -55,11 +55,11 @@ namespace ReinforcementLearning {
                     float currentValue = gridState.value; //on récupère la valeur actuelle de l'état
                     float actionValue = 0;
                     GridState nextState =
-                        GameManager.Instance.stateDelegate.GetNextState(gridState, gridState.bestAction, possibleStates, out _,
+                        GameManager.Instance.stateDelegate.GetNextState(gridState, gridState.BestAction, possibleStates, out _,
                             out _);
                     if (nextState != null)
                     {
-                        float reward = GameManager.Instance.stateDelegate.GetReward(nextState, nextState.bestAction,
+                        float reward = GameManager.Instance.stateDelegate.GetReward(nextState, nextState.BestAction,
                             possibleStates, out _);
                         float tmpStateValue = reward +
                                               gamma * nextState.value;
@@ -70,7 +70,7 @@ namespace ReinforcementLearning {
                     }
                     else
                     {
-                        float reward = GameManager.Instance.stateDelegate.GetReward(gridState, gridState.bestAction,
+                        float reward = GameManager.Instance.stateDelegate.GetReward(gridState, gridState.BestAction,
                             possibleStates, out _);
                         actionValue = reward;
                     }
@@ -86,7 +86,7 @@ namespace ReinforcementLearning {
             {
                 if (state != null)
                 {
-                    Movement currentMovement = state.bestAction;
+                    Movement currentMovement = state.BestAction;
                     float actionValue = 0;
                     for (int i = 0; i < 4; i++)
                     {
@@ -97,19 +97,19 @@ namespace ReinforcementLearning {
 
                         if (nextState != null)
                         {
-                            float reward = GameManager.Instance.stateDelegate.GetReward(nextState, nextState.bestAction,
+                            float reward = GameManager.Instance.stateDelegate.GetReward(nextState, nextState.BestAction,
                                 possibleStates, out _);
                             float tmpStateValue = reward +
                                                   gamma * nextState.value;
                             if (actionValue < tmpStateValue)
                             {
                                 actionValue = tmpStateValue;
-                                state.bestAction = move;
+                                state.BestAction = move;
                             }
                         }
                     }
 
-                    if (state.bestAction != currentMovement)
+                    if (state.BestAction != currentMovement)
                     {
                         stable = false;
                     }
@@ -132,6 +132,7 @@ namespace ReinforcementLearning {
                 GridState state = new GridState(possibleState) {
                     value = 0
                 };
+                state.SetArrow();
                 possibleStates.Add(state);
             }
 
@@ -156,7 +157,8 @@ namespace ReinforcementLearning {
                         float reward = stateDelegate.GetReward(state,actionType, possibleStates, out var nextStateTmp);
                         float currentVal = reward + gamma * (nextStateTmp?.value ?? 0);
                         if (max < currentVal) {
-                            state.bestAction = actionType;
+                            state.BestAction = actionType;
+                            
                             max = currentVal;
                         }
                     }
@@ -179,8 +181,8 @@ namespace ReinforcementLearning {
                 maxItterations--;
                 var tmp = nextState;
                 nextState = possibleStates.Find(state => state.Equals(nextState));
-                policy.Add(nextState.bestAction);
-                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.bestAction, possibleStates, out _, out _);
+                policy.Add(nextState.BestAction);
+                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.BestAction, possibleStates, out _, out _);
                 if (tmp.Equals(nextState)) break;
             } while (nextState != null && maxItterations >= 0);
 

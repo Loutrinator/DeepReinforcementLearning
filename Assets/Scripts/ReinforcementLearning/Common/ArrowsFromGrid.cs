@@ -18,21 +18,9 @@ namespace ReinforcementLearning.Common {
             }
         }
 
-        public void UpdateArrowDirection(int i, int j, Movement direction) {
-            switch (direction) {
-                case Movement.Down:
-                    arrowGrid[i][j].rotation = Quaternion.Euler(0, -90, 0);
-                    break;
-                case Movement.Left:
-                    arrowGrid[i][j].rotation = Quaternion.Euler(0, 180, 0);
-                    break;
-                case Movement.Right:
-                    arrowGrid[i][j].rotation = Quaternion.Euler(0, 0, 0);
-                    break;
-                case Movement.Up:
-                    arrowGrid[i][j].rotation = Quaternion.Euler(0, 90, 0);
-                    break;
-            }
+        public Transform GetArrow(int i, int j) {
+            Debug.Log("i : " + i + " ; j : " + j + " ; size : " + arrowGrid.Length);
+            return arrowGrid[i][j];
         }
     }
 }
