@@ -10,6 +10,7 @@ namespace ReinforcementLearning.Common {
             get => _bestAction;
             set {
                 _bestAction = value;
+                if (_gridArrow == null) return;
                 switch (value) {
                     case Movement.Down:
                         _gridArrow.rotation = Quaternion.Euler(0, 0, -90);

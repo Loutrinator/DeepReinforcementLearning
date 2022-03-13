@@ -15,9 +15,11 @@ namespace ReinforcementLearning {
             var possibleStates = new List<GridState>();
             foreach (var possibleState in possibleGridStates)
             {
-                GridState state = new GridState(possibleState);
                 int random = Random.Range(0, 4);
-                state.BestAction = (Movement)random;
+                GridState state = new GridState(possibleState) {
+                    BestAction = (Movement)random,
+                    value = 0
+                };
                 state.SetArrow();
                 possibleStates.Add(state);
             }
@@ -185,7 +187,7 @@ namespace ReinforcementLearning {
                 if (tmp.Equals(nextState)) break;
             } while (nextState != null && maxItterations >= 0);
 
-            string possibleStatesVals = "Values : ";
+            /*string possibleStatesVals = "Values : ";
             foreach (var state in possibleStates)
             {
                 possibleStatesVals += state.value + " ";
@@ -212,7 +214,7 @@ namespace ReinforcementLearning {
                 }
                 policyLog += " " + dirname;
             }
-            Debug.Log(policyLog);
+            Debug.Log(policyLog);*/
             return policy;
         }
     }
