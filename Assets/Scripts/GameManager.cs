@@ -24,8 +24,10 @@ public class GameManager : MonoBehaviour {
     [SerializeField] public ArrowsFromGrid arrowsManager;
 
     [SerializeField] private Canvas successCanvas;
+    [SerializeField] private SolverCanvas solverCanvas;
 
     private GameGrid gameGrid;
+    private List<Movement> moves;
     
     private void Awake() {
         if (_instance != null) {
@@ -40,6 +42,7 @@ public class GameManager : MonoBehaviour {
         successCanvas.gameObject.SetActive(false);
         gameGrid = new GameGrid();
         gameGrid.Init(groundPlane, arrowsManager);
+        solverCanvas.SetAlgo(algorithm);
     }
 
     public void SolveGame()
@@ -48,7 +51,6 @@ public class GameManager : MonoBehaviour {
         
         stopwatch.Start();
         
-        List<Movement> moves;
         switch (algorithm)
         {
             case SolvingAlgorithm.ValueIteration:
@@ -64,8 +66,13 @@ public class GameManager : MonoBehaviour {
         }
         
         stopwatch.Stop();
-        Debug.Log("Solved in " + (stopwatch.ElapsedMilliseconds/1000f) + " s ! Moves : " + moves.Count);
-        
+        float timeElapsed = (stopwatch.ElapsedMilliseconds / 1000f);
+        Debug.Log("Solved in " + timeElapsed + " s ! Moves : " + moves.Count);
+        solverCanvas.Solved(timeElapsed, stateDelegate.GetStateCount());
+    }
+
+    public void StartAnimatingGame()
+    {
         StartCoroutine(MovePlayer(moves));
     }
 

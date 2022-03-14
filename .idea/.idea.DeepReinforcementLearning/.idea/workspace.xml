@@ -21,7 +21,14 @@
   <component name="ChangeListManager">
     <list default="true" id="68799054-620c-47a7-84d0-58572fd78ddd" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.DeepReinforcementLearning/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Prefabs/MainCanvas.prefab" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Prefabs/MainCanvas.prefab" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Sokoban.unity" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Sokoban.unity" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scenes/Sokoban/PostProcessing Profile.asset" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scenes/Sokoban/PostProcessing Profile.asset" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Games/AiAgent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Games/AiAgent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/Games/GridWorldPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Games/GridWorldPlayer.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Assets/Scripts/Games/SokobanPlayer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/Games/SokobanPlayer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/StateDelegate.cs" beforeDir="false" afterPath="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/StateDelegate.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -47,6 +54,7 @@
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/InputHandler.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/MenuOptions.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/GameManager.cs" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/Assets/SolverCanvas.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
   </component>
   <component name="IdeDocumentHistory">
@@ -56,7 +64,11 @@
         <option value="$PROJECT_DIR$/Assets/Scripts/Coin.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/HeadOrTail.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Games/AiAgent.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/ReinforcementLearning/Common/StateDelegate.cs" />
         <option value="$PROJECT_DIR$/Assets/Scripts/Games/SokobanPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/Games/GridWorldPlayer.cs" />
+        <option value="$PROJECT_DIR$/Assets/Scripts/GameManager.cs" />
+        <option value="$PROJECT_DIR$/Assets/SolverCanvas.cs" />
       </list>
     </option>
   </component>
@@ -110,7 +122,7 @@
       <workItem from="1645018783275" duration="8873000" />
       <workItem from="1645028067476" duration="34232000" />
       <workItem from="1647105477166" duration="16682000" />
-      <workItem from="1647255557806" duration="337000" />
+      <workItem from="1647255557806" duration="3236000" />
     </task>
     <servers />
   </component>
@@ -134,6 +146,12 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup" timestamp="1647259458503">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="623" y="225" width="672" height="678" key="search.everywhere.popup/0.0.1920.1040@0.0.1920.1040" timestamp="1647259458503" />
   </component>
   <component name="XDebuggerManager">
     <watches-manager>
