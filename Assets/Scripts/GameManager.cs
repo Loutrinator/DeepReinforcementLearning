@@ -59,6 +59,9 @@ public class GameManager : MonoBehaviour {
             case SolvingAlgorithm.PolicyIteration:
                 moves = DynamicProgramming.PolicyIteration(player, gameGrid);
                 break;
+            case SolvingAlgorithm.MonteCarlo:
+                moves = MonteCarlo.FirstVisitMonteCarloPredictionWithExploringStart(player, gameGrid, 100, 100);
+                break;
             default:
                 Debug.LogError("Algorithm not implemented yet.");
                 moves = new List<Movement>();

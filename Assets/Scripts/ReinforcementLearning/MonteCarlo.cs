@@ -16,26 +16,25 @@ namespace ReinforcementLearning {
             rewards = new List<float>();
 
             int iterations = 0;
-            var currentGameState = possibleStates[0];
+            var currentGameState = new GridState(possibleStates[0].grid);
 
             while (!agent.IsFinalState(currentGameState.grid, firstState.grid) && iterations < maxEpisodeLength) {
                 int index = possibleStates.IndexOf(currentGameState);
                 var action = possibleStates[index].BestAction;
-                //var nextGameState =
 
-                gridStates.Add(currentGameState);
+                gridStates.Add(new GridState(currentGameState.grid));
                 actions.Add(action);
                 rewards.Add(GameManager.Instance.stateDelegate.GetReward(currentGameState, action, possibleStates,
                     out var nextState));
 
-                currentGameState = nextState;
+                currentGameState = new GridState(nextState.grid);
                 ++iterations;
             }
         }
     }
     
     public class MonteCarlo {
-        public static Dictionary<GridState, float> FirstVisitMonteCarloPrediction(AiAgent agent, GameGrid grid, int episodesCount, int maxEpisodeLength) {
+        public static List<Movement> FirstVisitMonteCarloPredictionWithExploringStart(AiAgent agent, GameGrid grid, int episodesCount, int maxEpisodeLength) {
             var possibleGridStates = agent.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
             foreach (var possibleState in possibleGridStates) {
@@ -46,7 +45,6 @@ namespace ReinforcementLearning {
                 possibleStates.Add(state);
             }
 
-            var v = new Dictionary<GridState, float>();
             var n = new Dictionary<GridState, float>();
             var returns = new Dictionary<GridState, float>();
             for (int i = possibleStates.Count - 1; i >= 0; --i) {
@@ -55,6 +53,7 @@ namespace ReinforcementLearning {
             }
             
             float g;
+            List<Episode> episodes = new List<Episode>();
             for (int e = 0; e < episodesCount; ++e) {
                 Episode episode = new Episode(agent, grid.gridState, possibleStates, maxEpisodeLength);
                 g = 0;
@@ -65,13 +64,37 @@ namespace ReinforcementLearning {
                         n[episode.gridStates[t]] += 1;
                     }
                 }
+                episodes.Add(episode);
             }
 
             for (int i = possibleStates.Count - 1; i >= 0; --i) {
-                v[possibleStates[i]] = returns[possibleStates[i]] / n[possibleStates[i]];
-            }
+                possibleStates[i].value = returns[possibleStates[i]] / n[possibleStates[i]];
 
-            return v;
+                float episodeValue = episodes[0].gridStates.Find(state => state.Equals(possibleStates[i])).value;
+                for (int e = 1; e < episodesCount; ++e) {
+                    var currentEpValue = episodes[e].gridStates.Find(state => state.Equals(possibleStates[i])).value;
+                    if (episodeValue < currentEpValue) {
+                        episodeValue = currentEpValue;
+                        possibleStates[i].BestAction = episodes[e].actions[i];
+                    }
+                }
+            }
+            
+            // build end policy
+            List<Movement> policy = new List<Movement>();
+            var nextState = grid.gridState;
+            var maxIterations = 100;
+            do {
+                maxIterations--;
+                var tmp = nextState;
+                nextState = possibleStates.Find(state => state.Equals(nextState));
+                policy.Add(nextState.BestAction);
+                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.BestAction,
+                    possibleStates, out _, out _);
+                if (tmp.Equals(nextState)) break;
+            } while (nextState != null && maxIterations >= 0);
+
+            return policy;
         }
     }
 }
