@@ -15,7 +15,7 @@ namespace ReinforcementLearning {
             foreach (var possibleState in possibleGridStates) {
                 int random = Random.Range(0, 4);
                 GridState state = new GridState(possibleState) {
-                    BestAction = (Movement)0,
+                    BestAction = (Movement)random,
                     value = 0
                 };
                 state.SetArrow();
