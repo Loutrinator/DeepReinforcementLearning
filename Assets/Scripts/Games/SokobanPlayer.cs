@@ -157,7 +157,7 @@ namespace Games
             
         }
 
-        public override bool IsFinalState(GameGrid grid, GameGrid firstState) {
+        public override bool IsFinalState(int[][] grid, int[][] firstState) {
             return false;
         }
 

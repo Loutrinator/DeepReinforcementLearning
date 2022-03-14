@@ -55,8 +55,12 @@ namespace Games {
             return result.ToArray();
         }
 
-        public override bool IsFinalState(GameGrid grid, GameGrid firstState) {
-            return false;
+        public override bool IsFinalState(int[][] grid, int[][] firstState) {
+            int layerArrival = Layers.IntValue("Arrival");
+            int layerPlayer = Layers.IntValue("Player");
+            var arrivalPos = firstState.Find(layerArrival);
+            var playerPos = grid.Find(layerPlayer);
+            return playerPos[0] == arrivalPos[0] && playerPos[1] == arrivalPos[1];
         }
 
         public int GetReward(GridState currentState, Movement action, List<GridState> possibleStates, out GridState nextState)

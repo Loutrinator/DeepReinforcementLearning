@@ -36,6 +36,6 @@ namespace Games
             return (newI, newJ);
         }
 
-        public abstract bool IsFinalState(GameGrid grid, GameGrid firstState);
+        public abstract bool IsFinalState(int[][] grid, int[][] firstState);
     }
 }
