@@ -55,6 +55,10 @@ namespace Games {
             return result.ToArray();
         }
 
+        public override bool IsFinalState(GameGrid grid, GameGrid firstState) {
+            return false;
+        }
+
         public int GetReward(GridState currentState, Movement action, List<GridState> possibleStates, out GridState nextState)
         {
             var layerArrival = Layers.IntValue("Arrival");

@@ -157,6 +157,10 @@ namespace Games
             
         }
 
+        public override bool IsFinalState(GameGrid grid, GameGrid firstState) {
+            return false;
+        }
+
         private List<int[][]> GenerateAllPossibleStates(List<int[][]> previousGrids, int remainingcrates, int gridWidth, int gridHeight)
         {
             //remaining crates 1
