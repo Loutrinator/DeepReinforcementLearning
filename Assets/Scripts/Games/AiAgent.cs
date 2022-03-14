@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using Common;
-using ReinforcementLearning.Common;
+﻿using ReinforcementLearning.Common;
 using UnityEngine;
 
 namespace Games

@@ -47,6 +47,13 @@ namespace ReinforcementLearning {
                 state.SetArrow();
                 possibleStates.Add(state);
             }
+
+            var n = new Dictionary<GridState, float>();
+            var returns = new Dictionary<GridState, float>();
+            for (int i = possibleStates.Count - 1; i >= 0; --i) {
+                n.Add(possibleStates[i], 0);
+                returns.Add(possibleStates[i], 0);
+            }
             
             float g;
             for (int e = 0; e < episodesCount; ++e) {
@@ -54,8 +61,15 @@ namespace ReinforcementLearning {
                 g = 0;
                 for (int t = episode.gridStates.Count - 2; t >= 0; --t) {
                     g += episode.rewards[t + 1];
-                    //if (!possibleStates.Contains())
+                    if (!episode.gridStates.Take(t - 1).Contains(episode.gridStates[t])) {
+                        returns[episode.gridStates[t]] += g;
+                        n[episode.gridStates[t]] += 1;
+                    }
                 }
+            }
+
+            for (int i = possibleStates.Count - 1; i >= 0; --i) {
+                possibleStates[i].value = returns[possibleStates[i]] / n[possibleStates[i]];
             }
         }
     }
