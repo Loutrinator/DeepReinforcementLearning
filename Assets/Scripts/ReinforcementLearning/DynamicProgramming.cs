@@ -24,7 +24,7 @@ namespace ReinforcementLearning {
             }
 
             float gamma = 0.9f;
-            float theta = 0.01f;
+            float theta = 0.25f;
 
             PolicyEvaluation(possibleStates, gamma, theta);
 
@@ -74,75 +74,44 @@ namespace ReinforcementLearning {
         }
 
         private static void PolicyEvaluation(List<GridState> possibleStates, float gamma, float theta) {
-            int maxIterations = 100000;
-
-
-            Debug.Log("AFTER INITIALIZATION : ");
-            string possibleStatesVals = "Values : ";
-            foreach (var state in possibleStates) {
-                possibleStatesVals += state + " -> " + state.value + " ; best action" + state.BestAction + "\n";
-            }
-            Debug.Log(possibleStatesVals);
-            
             float delta;
             do {
                 delta = 0;
-                maxIterations--;
-                foreach (GridState gridState in possibleStates) {
-                    float tmp = gridState.value; //on récupère la valeur actuelle de l'état
-                    
-                    //TODO: Maybe nextState est pas null chez moi mais null chez Clément
-
-                    float reward = GameManager.Instance.stateDelegate.GetReward(gridState, gridState.BestAction,
-                        possibleStates, out var nextState);
-                    float currentValue = reward + gamma * nextState.value;
-
-                    gridState.value = currentValue;
-                    delta = Mathf.Max(delta, Mathf.Abs(tmp - currentValue));
+                for (var index = 0; index < possibleStates.Count; index++) {
+                    var temp = possibleStates[index].value;
+                    possibleStates[index].value =
+                        GameManager.Instance.stateDelegate.GetReward(possibleStates[index], possibleStates[index].BestAction,
+                            possibleStates, out var nextState) + gamma * nextState.value;
+                    delta = Mathf.Max(delta, Mathf.Abs(temp - possibleStates[index].value));
                 }
-            } while (delta > theta && maxIterations >= 0);
-            
-            Debug.Log("AFTER EVALUATION : ");
-            possibleStatesVals = "Values : ";
-            foreach (var state in possibleStates) {
-                possibleStatesVals += state + " -> " + state.value + " ; best action" + state.BestAction + "\n";
-            }
-            Debug.Log(possibleStatesVals);
+            } while (delta > theta);
 
-            bool stable = true;
-            foreach (GridState state in possibleStates) {
-                if (state != null) {
-                    Movement currentMovement = state.BestAction;
-                    float actionValue = 0;
-                    for (int i = 0; i < 4; i++) {
-                        Movement move = (Movement)i;
+            PolicyImprovement(possibleStates, gamma, theta);
+        }
 
-                        float reward = GameManager.Instance.stateDelegate.GetReward(state, state.BestAction,
-                            possibleStates, out var nextState);
+        private static void PolicyImprovement(List<GridState> possibleStates, float gamma, float theta) {
+            bool policyStable = true;
 
-                        if (nextState == null || nextState.Equals(state)) continue;
+            for (var index = 0; index < possibleStates.Count; index++) {
+                var temp = possibleStates[index].BestAction;
 
-                        float tmpStateValue = reward + gamma * nextState.value;
-                        if (actionValue < tmpStateValue) {
-                            actionValue = tmpStateValue;
-                            state.BestAction = move;
-                        }
+                var bestValue = possibleStates[index].value;
+                for (int i = Enum.GetValues(typeof(Movement)).Length - 1; i >= 0; --i) {
+                    var movement = (Movement)i;
+                    var value = GameManager.Instance.stateDelegate.GetReward(possibleStates[index],
+                        movement, possibleStates, out var nextState) + gamma * nextState.value;
+                    if (value > bestValue) {
+                        bestValue = value;
+                        possibleStates[index].BestAction = movement;
                     }
-
-                    if (state.BestAction != currentMovement) {
-                        stable = false;
-                    }
-                    if(stable) return;
                 }
+
+                if (temp != possibleStates[index].BestAction) policyStable = false;
             }
-            
-            Debug.Log("AFTER IMPROVEMENT : ");
-            possibleStatesVals = "Values : ";
-            foreach (var state in possibleStates) {
-                possibleStatesVals += state + " -> " + state.value + " ; best action" + state.BestAction + "\n";
+
+            if (policyStable) {
+                return;
             }
-            Debug.Log(possibleStatesVals);
-            
             PolicyEvaluation(possibleStates, gamma, theta);
         }
 
