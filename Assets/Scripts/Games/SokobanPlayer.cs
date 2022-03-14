@@ -64,19 +64,6 @@ namespace Games
             
             height = cleanedGrid.Length;
             width = cleanedGrid[0].Length;
-            
-            /*string originalLog = "Original map:\n";
-            for (int i = 0; i < height; ++i) {
-                for (int j = 0; j < width; ++j) {
-                    originalLog += cleanedGrid[i][j] + " ";
-                }
-    
-                originalLog += "\n";
-            }
-            
-            Debug.Log(originalLog);*/
-
-            
 
             int crateCount = 0;
             
@@ -94,58 +81,10 @@ namespace Games
                     }
                 }
             }
-
-            /*Debug.Log("arrivalPositions count : " + arrivalPositions.Count);
-            string cleanLog = "Cleaned map:\n";
-            for (int i = 0; i < height; ++i) {
-                for (int j = 0; j < width; ++j) {
-                    cleanLog += cleanedGrid[i][j] + " ";
-                }
-    
-                cleanLog += "\n";
-            }
-            Debug.Log(cleanLog);*/
             
             List<int[][]> gridList = new List<int[][]>();
             gridList.Add(cleanedGrid);
             gridList = GenerateAllPossibleStates(gridList, crateCount, width, height);
-            
-            
-            /*string log = "";
-            foreach (var res in gridList) {
-                for (int i = 0; i < height; ++i)
-                {
-                    log += "|";
-                    for (int j = 0; j < width; ++j) {
-                        int gridCase = res[i][j];
-                        string caseDesc = "";
-                        switch (gridCase)
-                        {
-                            case 6 :
-                                caseDesc = "P";
-                                break;
-                            case 7 :
-                                caseDesc = "X";
-                                break;
-                            case 8 :
-                                caseDesc = "_";
-                                break;
-                            case 9 :
-                                caseDesc = "*";
-                                break;
-                            case 11 :
-                                caseDesc = "#";
-                                break;
-                        }
-                        log += caseDesc + " ";
-                    }
-    
-                    log += "|\n";
-                }
-    
-                log += "\n";
-            }
-            Debug.Log(log);*/
 
             return gridList.ToArray();
             
@@ -170,7 +109,7 @@ namespace Games
                         if (layer == layerArrival || layer == layerGround) {
                             grid[i][j] = remainingcrates == 0 ? layerPlayer : layerCrate;
                             newGrid.Add(grid.CloneGrid());  // just a copy
-                            grid[i][j] = layer;//TODO: peut etre retirer cette ligne
+                            grid[i][j] = layer;
                         }
                     }
                 }    

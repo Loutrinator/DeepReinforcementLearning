@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using Common;
 using Games;
 using ReinforcementLearning.Common;
 using UnityEngine;
@@ -26,7 +25,7 @@ namespace ReinforcementLearning {
             float gamma = 0.9f;
             float theta = 0.25f;
 
-            PolicyEvaluation(possibleStates, gamma, theta);
+            PolicyEvaluation(agent, grid.gridState, possibleStates, gamma, theta);
 
             GridState nextState = grid.gridState;
             List<Movement> policy = new List<Movement>();
@@ -73,11 +72,12 @@ namespace ReinforcementLearning {
             return policy;
         }
 
-        private static void PolicyEvaluation(List<GridState> possibleStates, float gamma, float theta) {
+        private static void PolicyEvaluation(AiAgent agent, GridState firstState, List<GridState> possibleStates, float gamma, float theta) {
             float delta;
             do {
                 delta = 0;
                 for (var index = 0; index < possibleStates.Count; index++) {
+                    if (agent.IsFinalState(possibleStates[index].grid, firstState.grid)) continue;
                     var temp = possibleStates[index].value;
                     possibleStates[index].value =
                         GameManager.Instance.stateDelegate.GetReward(possibleStates[index], possibleStates[index].BestAction,
@@ -86,13 +86,14 @@ namespace ReinforcementLearning {
                 }
             } while (delta > theta);
 
-            PolicyImprovement(possibleStates, gamma, theta);
+            PolicyImprovement(agent, firstState, possibleStates, gamma, theta);
         }
 
-        private static void PolicyImprovement(List<GridState> possibleStates, float gamma, float theta) {
+        private static void PolicyImprovement(AiAgent agent, GridState firstState, List<GridState> possibleStates, float gamma, float theta) {
             bool policyStable = true;
 
             for (var index = 0; index < possibleStates.Count; index++) {
+                if (agent.IsFinalState(possibleStates[index].grid, firstState.grid)) continue;
                 var temp = possibleStates[index].BestAction;
 
                 var bestValue = possibleStates[index].value;
@@ -112,7 +113,7 @@ namespace ReinforcementLearning {
             if (policyStable) {
                 return;
             }
-            PolicyEvaluation(possibleStates, gamma, theta);
+            PolicyEvaluation(agent, firstState, possibleStates, gamma, theta);
         }
 
         public static List<Movement> ValueIteration(AiAgent agent, GameGrid grid) {
@@ -137,6 +138,7 @@ namespace ReinforcementLearning {
                 delta = 0;
                 for (var index = 0; index < possibleStates.Count; ++index) {
                     GridState state = possibleStates[index];
+                    if (agent.IsFinalState(state.grid, grid.gridState.grid)) continue;
                     float temp = state.value;
 
                     float max = 0;
