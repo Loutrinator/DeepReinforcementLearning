@@ -35,9 +35,7 @@ namespace ReinforcementLearning {
     }
     
     public class MonteCarlo {
-        public static void FirstVisitMonteCarloPrediction(AiAgent agent, GameGrid grid, int episodesCount, int maxEpisodeLength) {
-            List<Episode> episodes = new List<Episode>();
-
+        public static Dictionary<GridState, float> FirstVisitMonteCarloPrediction(AiAgent agent, GameGrid grid, int episodesCount, int maxEpisodeLength) {
             var possibleGridStates = agent.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
             foreach (var possibleState in possibleGridStates) {
@@ -48,6 +46,7 @@ namespace ReinforcementLearning {
                 possibleStates.Add(state);
             }
 
+            var v = new Dictionary<GridState, float>();
             var n = new Dictionary<GridState, float>();
             var returns = new Dictionary<GridState, float>();
             for (int i = possibleStates.Count - 1; i >= 0; --i) {
@@ -69,8 +68,10 @@ namespace ReinforcementLearning {
             }
 
             for (int i = possibleStates.Count - 1; i >= 0; --i) {
-                possibleStates[i].value = returns[possibleStates[i]] / n[possibleStates[i]];
+                v[possibleStates[i]] = returns[possibleStates[i]] / n[possibleStates[i]];
             }
+
+            return v;
         }
     }
 }
