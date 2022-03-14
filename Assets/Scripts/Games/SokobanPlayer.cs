@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Common;
-using ReinforcementLearning;
 using ReinforcementLearning.Common;
-using UnityEditor.PackageManager;
 using UnityEngine;
 
 namespace Games
@@ -18,16 +15,15 @@ namespace Games
 
         private List<int[]> arrivalPositions = new List<int[]>();
 
-        private int width = 0;
-        private int height = 0;
+        private int width;
+        private int height;
 
         private void Awake()
         {
-            layerPlayer = Layers.IntValue("Player");//LayerMask.NameToLayer("Player");
+            layerPlayer = Layers.IntValue("Player");
             layerCrate = Layers.IntValue("Crate");
             layerGround = Layers.IntValue("Ground");
             layerArrival = Layers.IntValue("Arrival");
-            
         }
 
         private void Start()
@@ -64,8 +60,6 @@ namespace Games
 
         public override int[][][] GetAllPossibleStates(GameGrid grid)
         {
-            //throw new NotImplementedException();
-
             var cleanedGrid = grid.gridState.grid.CloneGrid();
             
             height = cleanedGrid.Length;
@@ -211,7 +205,7 @@ namespace Games
                 }
             }
 
-            return countProperlyPlacedCrates == arrivalPositions.Count ? 1 : 0;
+            return countProperlyPlacedCrates / arrivalPositions.Count;
         }
 
         public GridState GetNextState(GridState currentState, Movement action, List<GridState> possibleStates, out int playerNewI,

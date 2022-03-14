@@ -13,8 +13,7 @@ namespace ReinforcementLearning {
             var possibleGridStates = agent.GetAllPossibleStates(grid);
             //Generation des etats de départ avec direction random
             var possibleStates = new List<GridState>();
-            foreach (var possibleState in possibleGridStates)
-            {
+            foreach (var possibleState in possibleGridStates) {
                 int random = Random.Range(0, 4);
                 GridState state = new GridState(possibleState) {
                     BestAction = (Movement)random,
@@ -23,106 +22,111 @@ namespace ReinforcementLearning {
                 state.SetArrow();
                 possibleStates.Add(state);
             }
-            
+
             float gamma = 0.9f;
             float theta = 0.01f;
-            
+
             PolicyEvaluation(possibleStates, gamma, theta);
-            
+
             GridState nextState = grid.gridState;
             List<Movement> policy = new List<Movement>();
             int maxItterations = 100;
-            do
-            {
+            do {
                 maxItterations--;
                 var tmp = nextState;
                 nextState = possibleStates.Find(state => state.Equals(nextState));
                 policy.Add(nextState.BestAction);
-                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.BestAction, possibleStates, out _, out _);
+                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.BestAction,
+                    possibleStates, out _, out _);
                 if (tmp.Equals(nextState)) break;
             } while (nextState != null && maxItterations >= 0);
+            
+            string possibleStatesVals = "Values : ";
+            foreach (var state in possibleStates) {
+                possibleStatesVals += state + " -> " + state.value + "\n";
+            }
+
+            Debug.Log(possibleStatesVals);
+            string policyLog = "Policy (" + policy.Count + ") :";
+            foreach (var move in policy) {
+                string dirname = "";
+                switch (move) {
+                    case Movement.Right:
+                        dirname = ">";
+                        break;
+                    case Movement.Down:
+                        dirname = "v";
+                        break;
+                    case Movement.Left:
+                        dirname = "<";
+                        break;
+                    case Movement.Up:
+                        dirname = "^";
+                        break;
+                }
+
+                policyLog += " " + dirname;
+            }
+
+            Debug.Log(policyLog);
 
             return policy;
         }
 
-        private static void PolicyEvaluation(List<GridState> possibleStates, float gamma, float theta)
-        {
-            
+        private static void PolicyEvaluation(List<GridState> possibleStates, float gamma, float theta) {
             int maxIterations = 100000;
 
 
             float delta = 0;
-            do
-            {
+            do {
                 delta = 0;
                 maxIterations--;
-                foreach (GridState gridState in possibleStates)
-                {
-                    float currentValue = gridState.value; //on récupère la valeur actuelle de l'état
-                    float actionValue = 0;
+                foreach (GridState gridState in possibleStates) {
+                    float tmp = gridState.value; //on récupère la valeur actuelle de l'état
+                    
                     //TODO: Maybe nextState est pas null chez moi mais null chez Clément
-                    GridState nextState =
-                        GameManager.Instance.stateDelegate.GetNextState(gridState, gridState.BestAction, possibleStates, out _,
-                            out _);
-                    if (nextState != null)
-                    {
-                        float reward = GameManager.Instance.stateDelegate.GetReward(gridState, gridState.BestAction,
-                            possibleStates, out _);
-                        float tmpStateValue = reward +
-                                              gamma * nextState.value;
-                        if (actionValue < tmpStateValue)
-                        {
-                            actionValue = tmpStateValue;
-                        }
-                    }
 
-                    gridState.value = actionValue;
-                    delta = Mathf.Max(delta, Mathf.Abs(currentValue - actionValue));
+                    float reward = GameManager.Instance.stateDelegate.GetReward(gridState, gridState.BestAction,
+                        possibleStates, out var nextState);
+                    float currentValue = reward + gamma * (nextState?.value ?? 0);
+
+                    gridState.value = currentValue;
+                    delta = Mathf.Max(delta, Mathf.Abs(tmp - currentValue));
                 }
             } while (delta > theta && maxIterations >= 0);
 
 
             bool stable = true;
-            foreach (GridState state in possibleStates)
-            {
-                if (state != null)
-                {
+            foreach (GridState state in possibleStates) {
+                if (state != null) {
                     Movement currentMovement = state.BestAction;
                     float actionValue = 0;
-                    for (int i = 0; i < 4; i++)
-                    {
+                    for (int i = 0; i < 4; i++) {
                         Movement move = (Movement)i;
 
-                        GridState nextState =
-                            GameManager.Instance.stateDelegate.GetNextState(state, move, possibleStates, out _, out _);
-
-                        if (nextState == state || nextState == null) continue;
-                        
                         float reward = GameManager.Instance.stateDelegate.GetReward(state, state.BestAction,
-                            possibleStates, out _);
-                        float tmpStateValue = reward +
-                                              gamma * nextState.value;
-                        if (actionValue < tmpStateValue)
-                        {
+                            possibleStates, out var nextState);
+
+                        if (nextState == null || nextState.Equals(state)) continue;
+
+                        float tmpStateValue = reward + gamma * nextState.value;
+                        if (actionValue < tmpStateValue) {
                             actionValue = tmpStateValue;
                             state.BestAction = move;
                         }
-                        
                     }
 
-                    if (state.BestAction != currentMovement)
-                    {
+                    if (state.BestAction != currentMovement) {
                         stable = false;
                     }
                 }
             }
 
-            if (stable)
-            {
+            if (stable) {
                 return;
             }
 
-            PolicyEvaluation(possibleStates, gamma, theta);;
+            PolicyEvaluation(possibleStates, gamma, theta);
         }
 
         public static List<Movement> ValueIteration(AiAgent agent, GameGrid grid) {
@@ -150,16 +154,15 @@ namespace ReinforcementLearning {
                     float temp = state.value;
 
                     float max = 0;
-                    foreach (Movement actionType in Enum.GetValues(typeof(Movement)))
-                    {
+                    foreach (Movement actionType in Enum.GetValues(typeof(Movement))) {
                         GameManager gm = GameManager.Instance;
                         StateDelegate stateDelegate = gm.stateDelegate;
-                        
-                        float reward = stateDelegate.GetReward(state,actionType, possibleStates, out var nextStateTmp);
+
+                        float reward = stateDelegate.GetReward(state, actionType, possibleStates, out var nextStateTmp);
                         float currentVal = reward + gamma * (nextStateTmp?.value ?? 0);
                         if (max < currentVal) {
                             state.BestAction = actionType;
-                            
+
                             max = currentVal;
                         }
                     }
@@ -168,37 +171,33 @@ namespace ReinforcementLearning {
 
                     delta = Mathf.Max(delta, Mathf.Abs(temp - state.value));
                 }
+            } while (delta > theta && maxItterations >= 0); // until delta < theta
 
-
-            } while (delta > theta && maxItterations >= 0);    // until delta < theta
-            
             // build end policy
             List<Movement> policy = new List<Movement>();
             var nextState = grid.gridState;
-            
+
             maxItterations = 100;
-            do
-            {
+            do {
                 maxItterations--;
                 var tmp = nextState;
                 nextState = possibleStates.Find(state => state.Equals(nextState));
                 policy.Add(nextState.BestAction);
-                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.BestAction, possibleStates, out _, out _);
+                nextState = GameManager.Instance.stateDelegate.GetNextState(nextState, nextState.BestAction,
+                    possibleStates, out _, out _);
                 if (tmp.Equals(nextState)) break;
             } while (nextState != null && maxItterations >= 0);
 
-            /*string possibleStatesVals = "Values : ";
-            foreach (var state in possibleStates)
-            {
-                possibleStatesVals += state.value + " ";
+            string possibleStatesVals = "Values : ";
+            foreach (var state in possibleStates) {
+                possibleStatesVals += state + " -> " + state.value + "\n";
             }
+
             Debug.Log(possibleStatesVals);
             string policyLog = "Policy (" + policy.Count + ") :";
-            foreach (var move in policy)
-            {
+            foreach (var move in policy) {
                 string dirname = "";
-                switch (move)
-                {
+                switch (move) {
                     case Movement.Right:
                         dirname = ">";
                         break;
@@ -212,9 +211,11 @@ namespace ReinforcementLearning {
                         dirname = "^";
                         break;
                 }
+
                 policyLog += " " + dirname;
             }
-            Debug.Log(policyLog);*/
+
+            Debug.Log(policyLog);
             return policy;
         }
     }

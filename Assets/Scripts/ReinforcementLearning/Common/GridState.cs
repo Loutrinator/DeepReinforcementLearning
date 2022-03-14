@@ -56,7 +56,8 @@ namespace ReinforcementLearning.Common {
                     log = log + grid[i][j] + " ";
                 }
 
-                log += "\n";
+                if(i < grid.Length - 1)
+                    log += "\n";
             }
             
             return log;

@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using Common;
 using ReinforcementLearning.Common;
-using UnityEditor.UI;
 using UnityEngine;
 
 namespace Games {

@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Timers;
 using Common;
 using Games;
 using ReinforcementLearning;
@@ -12,14 +11,14 @@ using Debug = UnityEngine.Debug;
 
 public enum SolvingAlgorithm
 {
-    ValueItteration, PolicyItteration, MCTS, Sarsa, QLearning
+    ValueIteration, PolicyIteration, MonteCarlo, Sarsa, QLearning
 }
 public class GameManager : MonoBehaviour {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
     public StateDelegate stateDelegate;
 
-    [SerializeField] private SolvingAlgorithm algorithm = SolvingAlgorithm.ValueItteration;
+    [SerializeField] private SolvingAlgorithm algorithm = SolvingAlgorithm.ValueIteration;
     
     [SerializeField] private AiAgent player;
     [SerializeField] private Transform groundPlane;
@@ -53,10 +52,10 @@ public class GameManager : MonoBehaviour {
         List<Movement> moves;
         switch (algorithm)
         {
-            case SolvingAlgorithm.ValueItteration:
+            case SolvingAlgorithm.ValueIteration:
                 moves = DynamicProgramming.ValueIteration(player, gameGrid);
                 break;
-            case SolvingAlgorithm.PolicyItteration:
+            case SolvingAlgorithm.PolicyIteration:
                 moves = DynamicProgramming.PolicyIteration(player, gameGrid);
                 break;
             default:
