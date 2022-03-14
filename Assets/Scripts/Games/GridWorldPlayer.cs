@@ -4,7 +4,7 @@ using ReinforcementLearning.Common;
 using UnityEngine;
 
 namespace Games {
-    public class GridWorldPlayer : AiAgent, StateDelegate
+    public class GridWorldPlayer : AiAgent, IStateDelegate
     {
 
         private void Start()
@@ -110,7 +110,8 @@ namespace Games {
                             nextState.grid[i][j] = layerGround;
                             nextState.grid[newI][newJ] = layerPlayer;
 
-                            return possibleStates.Find(state => state.Equals(nextState));
+                            var result = possibleStates.Find(state => state.Equals(nextState));
+                            return result ?? currentState;
                         }
                     }
                 }

@@ -1,9 +1,8 @@
 ﻿using System.Collections.Generic;
-using ReinforcementLearning.Common;
 
-namespace Common
+namespace ReinforcementLearning.Common
 {
-    public interface StateDelegate
+    public interface IStateDelegate
     {
         public int GetReward(GridState currentState, Movement action, List<GridState> possibleStates, out GridState nextState);
 

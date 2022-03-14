@@ -5,7 +5,7 @@ using UnityEngine;
 
 namespace Games
 {
-    public class SokobanPlayer : AiAgent, StateDelegate
+    public class SokobanPlayer : AiAgent, IStateDelegate
     {
         [SerializeField] private LayerMask crateMask;
         private int layerPlayer;
@@ -65,7 +65,7 @@ namespace Games
             height = cleanedGrid.Length;
             width = cleanedGrid[0].Length;
             
-            string originalLog = "Original map:\n";
+            /*string originalLog = "Original map:\n";
             for (int i = 0; i < height; ++i) {
                 for (int j = 0; j < width; ++j) {
                     originalLog += cleanedGrid[i][j] + " ";
@@ -74,7 +74,7 @@ namespace Games
                 originalLog += "\n";
             }
             
-            Debug.Log(originalLog);
+            Debug.Log(originalLog);*/
 
             
 
@@ -95,7 +95,7 @@ namespace Games
                 }
             }
 
-            Debug.Log("arrivalPositions count : " + arrivalPositions.Count);
+            /*Debug.Log("arrivalPositions count : " + arrivalPositions.Count);
             string cleanLog = "Cleaned map:\n";
             for (int i = 0; i < height; ++i) {
                 for (int j = 0; j < width; ++j) {
@@ -104,14 +104,14 @@ namespace Games
     
                 cleanLog += "\n";
             }
-            Debug.Log(cleanLog);
+            Debug.Log(cleanLog);*/
             
             List<int[][]> gridList = new List<int[][]>();
             gridList.Add(cleanedGrid);
             gridList = GenerateAllPossibleStates(gridList, crateCount, width, height);
             
             
-            string log = "";
+            /*string log = "";
             foreach (var res in gridList) {
                 for (int i = 0; i < height; ++i)
                 {
@@ -145,7 +145,7 @@ namespace Games
     
                 log += "\n";
             }
-            Debug.Log(log);
+            Debug.Log(log);*/
 
             return gridList.ToArray();
             

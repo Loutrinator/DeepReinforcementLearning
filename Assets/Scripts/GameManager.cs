@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Diagnostics;
-using Common;
 using Games;
 using ReinforcementLearning;
 using ReinforcementLearning.Common;
@@ -16,7 +15,7 @@ public enum SolvingAlgorithm
 public class GameManager : MonoBehaviour {
     private static GameManager _instance;
     public static GameManager Instance => _instance;
-    public StateDelegate stateDelegate;
+    public IStateDelegate stateDelegate;
 
     [SerializeField] private SolvingAlgorithm algorithm = SolvingAlgorithm.ValueIteration;
     
