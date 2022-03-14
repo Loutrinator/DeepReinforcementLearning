@@ -90,8 +90,30 @@ namespace Games
             
         }
 
-        public override bool IsFinalState(int[][] grid, int[][] firstState) {
-            return false;
+        public override bool IsFinalState(int[][] grid, int[][] firstState)
+        {
+            int countProperlyPlacedCrates = 0;
+            
+            for (int i = 0; i < height; ++i) {
+                for (int j = 0; j < width; ++j)
+                {
+                    int gridCase = grid[i][j];
+                    if (gridCase == layerCrate) {
+                        
+                        foreach (var arrival in arrivalPositions)
+                        {
+                            int arrivalX = arrival[0];
+                            int arrivalY = arrival[1];
+                            if (arrivalX == i && arrivalY == j)
+                            {
+                                countProperlyPlacedCrates++;
+                            }
+                        }
+                    }
+                }
+            }
+
+            return countProperlyPlacedCrates == arrivalPositions.Count;
         }
 
         private List<int[][]> GenerateAllPossibleStates(List<int[][]> previousGrids, int remainingcrates, int gridWidth, int gridHeight)
