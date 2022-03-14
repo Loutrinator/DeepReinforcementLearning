@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour {
     [SerializeField] private Canvas successCanvas;
 
     private GameGrid gameGrid;
+    public int[][] startGrid;
     
     private void Awake() {
         if (_instance != null) {
@@ -39,7 +40,7 @@ public class GameManager : MonoBehaviour {
     private void Start() {
         successCanvas.gameObject.SetActive(false);
         gameGrid = new GameGrid();
-        gameGrid.Init(groundPlane, arrowsManager);
+        startGrid = gameGrid.Init(groundPlane, arrowsManager);
     }
 
     public void SolveGame()
@@ -52,10 +53,10 @@ public class GameManager : MonoBehaviour {
         switch (algorithm)
         {
             case SolvingAlgorithm.ValueIteration:
-                moves = DynamicProgramming.ValueIteration(player, gameGrid);
+                moves = DynamicProgramming.ValueIteration(player, startGrid);
                 break;
             case SolvingAlgorithm.PolicyIteration:
-                moves = DynamicProgramming.PolicyIteration(player, gameGrid);
+                moves = null;//DynamicProgramming.PolicyIteration(player, gameGrid);
                 break;
             default:
                 Debug.LogError("Algorithm not implemented yet.");

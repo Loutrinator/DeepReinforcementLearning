@@ -4,10 +4,10 @@ using UnityEngine;
 
 [Serializable]
 public class GameGrid {
-    public GridState gridState;
+    //public GridState gridState;
     public ArrowsFromGrid arrowsManager;
 
-    public void Init(Transform groundPlane, ArrowsFromGrid arrowsManagerP) {
+    public int[][] Init(Transform groundPlane, ArrowsFromGrid arrowsManagerP) {
         var groundScale = groundPlane.lossyScale;
         var groundSize = new Vector2Int(Mathf.RoundToInt(groundScale.x * 10), Mathf.RoundToInt(groundScale.z * 10));
         var groundPos = groundPlane.position;
@@ -29,9 +29,11 @@ public class GameGrid {
             }
         }
         
-        gridState = new GridState(grid);
+        //gridState = new GridState(grid);
 
         arrowsManager = arrowsManagerP;
         arrowsManager.Init(grid, firstPos);
+
+        return grid;
     }
 }

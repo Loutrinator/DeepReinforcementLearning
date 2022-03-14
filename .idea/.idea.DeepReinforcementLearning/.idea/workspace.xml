@@ -49,6 +49,7 @@
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Runtime/UI/Core/GraphicRaycaster.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Assets/Scripts/Arrival.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$APPLICATION_CONFIG_DIR$/resharper-host/DecompilerCache/decompiler/fd824cfb55004855b9e6d51b008c90e4568778/91/c0b36266/Single.cs" root0="SKIP_HIGHLIGHTING" />
+    <setting file="mock:///Dummy.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/pamar/Documents/Projets/DeepReinforcementLearning/Assets/Scripts/ReinforcementLearning/Common/GridState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="mock://C:/Users/pamar/Documents/Projets/DeepReinforcementLearning/Assets/Scripts/ReinforcementLearning/Common/GridState.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/Library/PackageCache/com.unity.ugui@1.0.0/Editor/UI/MenuOptions.cs" root0="SKIP_HIGHLIGHTING" />
@@ -71,7 +72,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.3494968" />
+    <property name="DebuggerViewTab_PTCS_FirstProportionKey" value="0.34940413" />
     <property name="DebuggerViewTab_PTCS_LastProportionKey" value="0.0" />
     <property name="Discover.Launch.Via.Unity" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
@@ -112,7 +113,7 @@
       <workItem from="1645003591205" duration="6164000" />
       <workItem from="1645018783275" duration="8873000" />
       <workItem from="1645028067476" duration="34232000" />
-      <workItem from="1647105477166" duration="16682000" />
+      <workItem from="1647105477166" duration="22667000" />
     </task>
     <servers />
   </component>

@@ -6,10 +6,8 @@ using UnityEngine;
 namespace Games {
     public class GridWorldPlayer : AiAgent, IStateDelegate
     {
-
         private void Start()
         {
-            
             GameManager.Instance.stateDelegate = this;
         }
 
@@ -25,13 +23,13 @@ namespace Games {
             }
         }
 
-        public override int[][][] GetAllPossibleStates(GameGrid grid) {
+        public override int[][][] GetAllPossibleStates(int[][] grid) {
             int layerPlayer = Layers.IntValue("Player");
             int layerGround = Layers.IntValue("Ground");
             
             var result = new List<int[][]>();
 
-            var cleanedGrid = grid.gridState.grid.CloneGrid();
+            var cleanedGrid = grid.CloneGrid();
             int gridHeight = cleanedGrid.Length;
             int gridWidth = cleanedGrid[0].Length;
             foreach (var row in cleanedGrid) {
@@ -66,10 +64,10 @@ namespace Games {
         {
             var layerArrival = Layers.IntValue("Arrival");
             nextState = GetNextState(currentState, action, possibleStates, out var playerI, out var playerJ);
-            if (currentState.grid[playerI][playerJ] == layerArrival) {
+            var arrivalPos = currentState.objectsPositions.Find(obj => obj.Key == layerArrival).Value;
+            if (arrivalPos.x == playerI && arrivalPos.y == playerJ) {
                 return 1;
             }
-
             return 0;
         }
 
@@ -79,14 +77,19 @@ namespace Games {
             var layerPlayer = Layers.IntValue("Player");
             var layerGround = Layers.IntValue("Ground");
             var layerArrival = Layers.IntValue("Arrival");
-            var nextState = new GridState(currentState.grid.CloneGrid());
+            var nextState = new GridState(currentState);
             playerNewI = -1;
             playerNewJ = -1;
-            Vector2Int gridSize = new Vector2Int(currentState.grid[0].Length, currentState.grid.Length);
-            for (int i = 0; i < gridSize.y; ++i) {
-                for (int j = 0; j < gridSize.x; ++j) {
-                    if (currentState.grid[i][j] == layerPlayer) {
-                        int testCell = 0;
+            Vector2Int gridSize = new Vector2Int(GameManager.Instance.startGrid[0].Length, GameManager.Instance.startGrid.Length);
+            
+            //for (int i = 0; i < gridSize.y; ++i) 
+            {
+                //for (int j = 0; j < gridSize.x; ++j) 
+                {
+                    var playerState = currentState.objectsPositions.Find(v => v.Key == layerPlayer);
+                    int i = playerState.Value.x, j = playerState.Value.y;
+                    /*if (currentState.grid[i][j] == layerPlayer)*/ {
+                        int testCell;
                         int newI = i, newJ = j;
                         switch (action) {
                             case Movement.Up:
@@ -105,10 +108,12 @@ namespace Games {
 
                         playerNewI = newI;
                         playerNewJ = newJ;
-                        testCell = nextState.grid[newI][newJ];
+                        testCell = GameManager.Instance.startGrid[newI][newJ];
                         if (testCell == layerGround || testCell == layerArrival) {
-                            nextState.grid[i][j] = layerGround;
-                            nextState.grid[newI][newJ] = layerPlayer;
+                            /*nextState.grid[i][j] = layerGround;
+                            nextState.grid[newI][newJ] = layerPlayer;*/
+                            nextState.objectsPositions.Find(v => v.Key == layerPlayer).Value = new Vector2Int(newI, newJ);
+                            
 
                             var result = possibleStates.Find(state => state.Equals(nextState));
                             return result ?? currentState;

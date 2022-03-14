@@ -12,7 +12,7 @@ namespace Games
 
         public abstract void Move(Vector2 direction);
 
-        public abstract int[][][] GetAllPossibleStates(GameGrid grid);
+        public abstract int[][][] GetAllPossibleStates(int[][] grid);
 
         protected (int, int) MovePosition(int i, int j, Movement action, int gridWidth, int gridHeight)
         {

@@ -8,7 +8,7 @@ using Random = UnityEngine.Random;
 
 namespace ReinforcementLearning {
     public static class DynamicProgramming {
-        public static List<Movement> PolicyIteration(AiAgent agent, GameGrid grid) {
+        /*public static List<Movement> PolicyIteration(AiAgent agent, GameGrid grid) {
             // init
             var possibleGridStates = agent.GetAllPossibleStates(grid);
             //Generation des etats de départ avec direction random
@@ -144,10 +144,11 @@ namespace ReinforcementLearning {
             Debug.Log(possibleStatesVals);
             
             PolicyEvaluation(possibleStates, gamma, theta);
-        }
+        }*/
 
-        public static List<Movement> ValueIteration(AiAgent agent, GameGrid grid) {
+        public static List<Movement> ValueIteration(AiAgent agent, int[][] grid) {
             // init
+            var firstState = new GridState(grid);
             var possibleGridStates = agent.GetAllPossibleStates(grid);
             var possibleStates = new List<GridState>();
             foreach (var possibleState in possibleGridStates) {
@@ -192,7 +193,7 @@ namespace ReinforcementLearning {
 
             // build end policy
             List<Movement> policy = new List<Movement>();
-            var nextState = grid.gridState;
+            var nextState = firstState;
 
             maxIterations = 100;
             do {
