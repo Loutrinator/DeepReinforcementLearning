@@ -10,6 +10,8 @@ namespace Games
         public float gridSize = 1;
         [SerializeField] protected LayerMask walkableMask;
 
+        protected int stateCount = 0;
+
         public abstract void Move(Vector2 direction);
 
         public abstract int[][][] GetAllPossibleStates(GameGrid grid);
@@ -37,5 +39,6 @@ namespace Games
         }
 
         public abstract bool IsFinalState(int[][] grid, int[][] firstState);
+
     }
 }

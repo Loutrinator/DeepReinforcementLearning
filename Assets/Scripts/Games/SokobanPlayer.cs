@@ -137,8 +137,11 @@ namespace Games
                 }    
             }
 
-            return GenerateAllPossibleStates(newGrid, remainingcrates - 1, gridWidth, gridHeight);
+            List<int[][]> result = GenerateAllPossibleStates(newGrid, remainingcrates - 1, gridWidth, gridHeight);
+            
+            stateCount = result.Count;
 
+            return result;
         }
 
         public int GetReward(GridState currentState, Movement action, List<GridState> possibleStates, out GridState nextState)
@@ -233,6 +236,10 @@ namespace Games
             
             return currentState;
         }
-        
+
+        public int GetStateCount()
+        {
+            return stateCount;
+        }
     }
 }

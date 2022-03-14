@@ -8,5 +8,7 @@ namespace ReinforcementLearning.Common
 
         public GridState GetNextState(GridState currentState, Movement action, List<GridState> possibleStates, out int playerNewI,
             out int playerNewJ);
+
+        public int GetStateCount();
     }
 }

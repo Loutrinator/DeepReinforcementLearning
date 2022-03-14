@@ -51,6 +51,7 @@ namespace Games {
                 }
             }
 
+            stateCount = result.Count;
             return result.ToArray();
         }
 
@@ -119,5 +120,11 @@ namespace Games {
             
             return currentState;
         }
+        
+        public int GetStateCount()
+        {
+            return stateCount;
+        }
     }
+    
 }
